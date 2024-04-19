@@ -1,0 +1,32 @@
+name: Publish dashboard Image
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - '*'
+
+jobs:
+  dashboard:
+    name: Publish dashboard Image
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.4.0
+      - name: Publish dashboard Image
+        uses: openzim/docker-publish-action@v10
+        with:
+          image-name: offspot/dashboard
+          on-master: dev
+          build-args:
+            VERSION={tag}
+          tag-pattern: /^([0-9.]+)$/
+          restrict-to: offspot/dashboard
+          platforms: |
+            linux/amd64
+            linux/arm64
+          context: dashboard
+          registries: ghcr.io
+          credentials:
+            GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
+            GHCRIO_TOKEN=${{ secrets.GHCR_TOKEN }}

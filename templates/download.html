@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block entries %}
+    <section
+      id="entries"
+      class="
+        content-max-w
+        content-w
+        mx-auto
+
+        my-4
+
+        justify-center
+        box-border
+
+        auto-cols-min
+        grid grid-cols-1f
+        gap-y-2"
+    >
+
+      <div class="
+        flex
+        flex-row
+        justify-center
+        mb-[0.7rem]
+        text-white
+        text-[1.5rem]
+        font-medium
+
+        md:hidden
+      ">
+        <h2 class="
+
+        ">DOWNLOADS</h2>
+      </div>
+
+      {% if readers %}
+      <div id="readers-banner" class="
+
+        relative
+
+        hidden
+        flex flex-row
+
+        bg-kwordergrey-500
+        md:bg-kwreaderbggrey
+        text-white
+
+        rounded-lg
+
+        h-[6.3rem]
+        mb-2 px-[1rem] py-[0.6rem]
+      ">
+          <div class="
+            flex-none flex
+            items-center
+            w-[2em]
+            me-[1em]
+          ">
+            <img class="flex-none rounded-xl mr-1.5 size-[30px] " src="/assets/kiwix-bird-white.png" />
+          </div>
+          <div class="
+            flex-none flex
+            items-center
+
+            w-[4em]
+            sm:w-[10em]
+            lg:w-[10em]
+            xl:w-[17em]
+            2xl:w-[20em]
+
+            me-[1em]
+            ">
+            <h2 class="flex-auto text-lg text-left">Kiwix Reader</h2>
+          </div>
+          <div class="
+            flex
+            flex-none
+            sm:flex-col
+
+            items-center
+
+            items-left
+
+            sm:w-[25em]
+            md:w-[33em]
+            lg:w-[33em]
+            xl:w-[42em]
+            2xl:w-[55em]
+
+          ">
+            <div class="
+              text-[0.9em]
+              leading-[1.3em]
+              xl:leading-[2.2em]
+
+              sm:me-[3em]
+              sm:mb-[1em]
+
+              hidden
+              sm:inline
+
+            ">Download a reader software for your device's platform to use ZIM files locally.
+            </div>
+            <div class="
+              grid
+              gap-x-2
+              gap-y-2
+              zauto-cols-min
+              grid-cols-2m
+
+
+              sm:inline-block
+              ">
+              {% for reader in readers %}
+              <a
+                href="{{ reader.url }}"
+                data-size="{{ reader.size }}"
+                class="
+                  kiwix-reader-platform-btn
+                  items-center
+                "><i class="fa fa-download fa-sm"></i>
+                  <span class="xs:hidden sm:hidden"><i class="fa-brands fa-{{ reader.icon }}"></i></span>
+                  <span class="hidden xs:inline sm:inline">{{ reader.name }}</span></a>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div aclass="flex-none w-[1.5em] text-center  flex items-center ms-[1em]"
+            class="absolute top-[0.6em] right-[1.4em]"
+          >
+              <!-- <div class="hover:text-kwreaderhover text-white cursor-pointer text-center text-[1.5em] leading-[1.5em] h-[1.5em] p-0"> -->
+                <i id="remove-readers-banner-btn" class="
+                  fa fa-xmark
+                  hover:text-kwreaderhover text-white cursor-pointer text-center text-[1.5em]
+                "></i>
+              <!-- </div> -->
+          </div>
+        </div>
+        {% endif %}
+
+        {% for package in packages %}
+        {% if package.download and package.download.size %}
+        <div
+          class="
+            hotspot-entry
+            flex
+            flex-row
+
+            bg-white
+            text-kwtextgrey
+
+            rounded-full
+            md:rounded-lg
+
+            box-border border-kwbordergrey border-solid border px-[1em]
+
+            h-[4rem]
+            md:h-[3rem]
+            py-[0.6rem]
+
+            hover:bg-kwbgwhitehover
+            order-[{{ loop.index0 }}]
+            "
+          data-target="{{ package.url }}"
+          data-category="{{ package.category }}"
+          data-langs="{% if package.langs %}{% for lang in package.languages %}{{ lang }} {% endfor %}{% endif %}"
+          data-name="{{ package.title }}"
+          data-size="{% if package.download and package.download.size %}{{ package.download.size }}{% else %}0{% endif %}">
+
+          <div
+            data-tip="{{ package.title }}"
+            class="
+            flex-none flex items-center
+            w-[2em]
+            me-[1em]
+
+            tooltip
+            md:tooltip-none
+            tooltip-right
+          ">
+            <img class="flex-none size-[30px] mr-1.5" src="data:image/png;base64,{% if package.icon %}{{ package.icon }}{% endif %}" />
+          </div>
+          <div class="
+            flex
+
+            flex-auto
+            md:flex-none
+
+            items-center
+
+            text-clip
+            md:truncate
+
+            w-[18em]
+            md:w-[10em]
+            lg:w-[10em]
+            xl:w-[17em]
+            2xl:w-[20em]
+
+            me-[0.5em]
+            md:me-[1em]
+          ">
+            <h2
+              class="
+              flex-auto
+              text-kwtextblack
+              text-left
+              text-lg leading-[1em]
+
+
+            ">{{ package.title|truncate(30, killwords=True, end="…") }}</h2>
+          </div>
+          <div class="
+            hidden
+            md:flex
+            flex-none
+            xl:items-center
+
+            pt-[.2em]
+            xl:pt-0
+
+            md:w-[12em]
+            lg:w-[12em]
+            xl:w-[19em]
+            2xl:w-[28em]
+
+            me-[1em]
+          ">
+            <p class="
+              text-[.875em]
+              leading-[1.6em]
+              text-pretty
+              ah-[3rem]
+            "
+            style="overflow: hidden; text-overflow: ellipsis;"
+            >{{ package.description|default("-")|truncate(80, killwords=False, end="…") }}</p>
+          </div>
+          <div class="
+            flex-none flex items-center
+            truncate
+
+            md:w-[3em]
+            lg:w-[3em]
+            xl:w-[3em]
+            2xl:w-[4em]
+
+            me-[0.5em]
+            md:me-[1em]
+          ">
+            <span class="text-xs">{{ package.download.size|fsize }}</span>
+          </div>
+          <div class="
+            flex-none flex
+            items-center
+            truncate
+
+            md:w-[1.6em]
+            lg:w-[1.6em]
+            xl:w-[3em]
+            2xl:w-[4em]
+            me-[1em]
+          ">
+            <div class="flex-none text-left">
+              {% if package.langs %}
+              {% for lang in package.langs %}
+              {% if loop.index0 < 2 %}
+              <span
+                class="rounded-md border-kwbordergrey border-solid border text-center text-[0.7em] pt-[0.32em] pb-[0.32em] px-[0.3em] uppercase me-1 last:me-0"
+              >{{ lang }}</span>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="
+            hidden
+            md:flex
+
+            flex-none
+            items-center
+            truncate
+
+            md:w-[10.6em]
+            lg:w-[10.6em]
+            xl:w-[11em]
+            2xl:w-[13em]
+          ">
+            {% if package.tags %}{% for tag in package.tags %}{% if loop.index0 <= 1 %}<span class="rounded-xl px-2 py-0.5 bg-kwtagbggrey text-white text-xs font-medium justify-center me-1 last:me-0">{{ tag }}</span>{% endif %}{% endfor %}{% endif %}
+          </div>
+
+          <div class="
+            flex
+            flex-none
+            items-center
+            w-[2em]
+          ">
+            <div class="hover:bg-kworange-700 cursor-pointer rounded-md bg-kworange text-white text-center w-[1.8em] leading-[1.8em] h-[1.8em] p-0">
+              <a href="{{ package.download.url }}" download>
+                <i class="fa fa-download"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+        {% endif %}
+      {% else %}
+      <p>No content packages 🙁</p>
+      {% endfor %}
+    </section>
+{% endblock %}

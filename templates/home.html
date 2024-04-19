@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block entries %}
+    <section
+      id="entries"
+      class="
+        content-max-w
+
+        w-100 mx-auto
+        grid
+        gap-x-4
+        gap-y-4
+        md:auto-cols-min
+
+        sm:grid-cols-1m
+        md:grid-cols-3m
+        lg:grid-cols-3m
+        xl:grid-cols-4m
+        2xl:grid-cols-5m
+
+        justify-center
+        box-border
+        my-4"
+    >
+        {% for package in packages %}
+        <div
+          class="
+            hotspot-entry
+
+            relative
+            box-border
+
+            cursor-pointer
+            bg-white
+            hover:bg-kwbgwhitehover
+            rounded-lg
+            border-kwbordergrey border-solid border
+
+
+            w-[20em]
+            h-[10.6em]
+
+            xxs:w-[20em]
+            xxs:h-[10.6em]
+
+            xs:w-[25em]
+            xs:h-[13.2em]
+
+            sm:w-[25em]
+            sm:h-[13.2em]
+
+            mx-auto
+            md:w-[15.3rem]
+            md:h-[16.2rem]
+
+            pl-2.5
+            pt-4
+            pr-5
+            pb-5
+            text-kwtextgrey
+            order-[{{ loop.index0 }}]
+
+
+          "
+          data-target="{{ package.url }}"
+          data-category="{{ package.category }}"
+          data-langs="{% if package.langs %}{% for lang in package.languages %}{{ lang }} {% endfor %}{% endif %}"
+          data-name="{{ package.title }}"
+          data-size="{% if package.download and package.download.size %}{{ package.download.size }}{% else %}0{% endif %}"
+        >
+          <div class="
+            flex
+            flex-row
+            h-[38px]
+            sm:mb-[2.3rem]
+            mb-[1.3rem]
+          ">
+            <div class="flex-none md:w-[38px] mr-[0.8rem]">
+              <img
+                src="data:image/png;base64,{% if package.icon %}{{ package.icon }}{% endif %}"
+                class="flex-none aspect-square w-[38px] h-[38px]"
+              />
+            </div>
+            <a
+              data-tip="{{ package.title }}"
+              href="{{ package.url }}"
+              class="tooltip"
+            >
+              <h2 class="
+                flex-auto
+
+                text-[1.5em]
+                md:text-[1.15em]
+
+                text-kwtextblack
+                leading-[1.2em]
+                text-left
+              ">
+                {{ package.title|truncate(30, killwords=True, end="…") }}
+              </h2>
+            </a>
+          </div>
+
+          <div
+            class="
+              flex
+              flex-row
+
+              md:mb-[0.6rem]
+
+              h-[4em]
+              xs:h-[6.5rem]
+              sm:h-[5.5rem]
+              md:h-[7.4rem]
+            ">
+            <div
+              class="
+                flex
+                flex-none
+
+                absolute
+                md:inherit
+                md:flex
+
+                right-[0.625rem]
+
+                md:right-auto
+
+                top-[8.82rem]
+                xxs:top-[8.81rem]
+                xs:top-[11.32rem]
+                sm:top-[11.32rem]
+                md:top-[auto]
+
+                mr-0
+
+                md:w-[38px]
+              ">
+              {% if package.langs %}
+              <div class="
+                flex
+
+                flex-row
+                md:flex-col
+
+                qmd:w-[1.4em]
+
+              ">
+                {% for lang in package.langs %}
+                {% if loop.index0 <= 2 and lang != 'mu' %}
+                <div class="
+                  rounded-md
+                  border-kwbordergrey
+                  border-solid
+                  border
+
+                  hide-after-2
+                  md:flex
+
+                  zw-[1.4em]
+                  zh-[1.4em]
+                  py-[0.12rem]
+                  px-[0.21rem]
+
+                  text-center
+
+                  me-1
+                  last:me-0
+                  md:me-0
+
+                  md:mb-1
+                  md:last:mb-1
+                "><div class="text-[0.7em] pt-[0.1em] uppercase">{{ lang }}</div></div>
+                {% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+            <div class="
+              ml-[calc(38px+0.8rem)]
+
+              md:ml-0
+              flex-auto
+              ">
+              <p class="
+                text-[1.02em]
+                md:text-[0.94em]
+
+                leading-[1.2em]
+                text-pretty
+                overscroll-y-none
+                text-kwtextgreyn
+              ">{{ package.description|default("-")|truncate(80, killwords=False, end="…") }}</p>
+            </div>
+          </div>
+
+          <div class="flex flex-row relative">
+            <div class="flex-none min-w-[38px]">{% if package.download and package.download.size %}<span class="text-xs">{{ package.download.size|fsize }}</span>{% endif %}</div>
+            <div class="flex-auto absolute left-[3.2rem]">{% if package.tags %}{% for tag in package.tags %}{% if loop.index0 <= 1 %}<span class="
+              rounded-xl
+              px-2
+              py-0.5
+
+              bg-kwtagbggrey
+              text-white
+              text-xs
+
+              font-regular
+              md:font-medium
+
+              justify-center
+              me-1
+              last:me-0
+            ">{{ tag }}</span>{% endif %}{% endfor %}{% endif %}</div>
+          </div>
+        </div>
+      {% else %}
+      <p>No content packages 🙁</p>
+      {% endfor %}
+    </section>
+{% endblock %}

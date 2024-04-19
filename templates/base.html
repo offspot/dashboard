@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>{{ name }}</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon-light.png" media="(prefers-color-scheme:no-preference)">
+    <link rel="icon" type="image/png" href="/assets/favicon-dark.png"  media="(prefers-color-scheme:dark)">
+    <link rel="icon" type="image/png" href="/assets/favicon-light.png" media="(prefers-color-scheme:light)">
+    <link rel="stylesheet" type="text/css" href="/assets/dashboard.css" />
+    <link rel="stylesheet" href="/assets/fontawesome/css/fontawesome.css" >
+    <link rel="stylesheet" href="/assets/fontawesome/css/solid.css" >
+    <link rel="stylesheet" href="/assets/fontawesome/css/brands.css" >
+  </head>
+  <body
+    data-page="{{ page }}"
+    class="
+    {% if page == 'download' %}bg-kworange{% else %}bg-kwbggrey{% endif %}
+    md:bg-kwbggrey
+  ">
+    <header class="
+      bg-white
+
+      {% if page == 'download' %}
+        kiwix-mini-download-open-outerglow
+      {% endif %}
+      {% if page == 'home' %}
+        kiwix-mini-download-open-outerglow
+      {% endif %}
+      ">
+      <nav class="
+        content-max-w
+        content-w
+        mx-auto
+        h-[6rem]">
+        <div class="flex flex-row h-[6rem] leading-[6rem]">
+            <div class="flex flex-auto">
+              <a href="/">
+                <img
+                  src="/assets/hotspot-logo.png"
+                  class="object-scale-down w-[11rem] h-[6rem] object-left" />
+              </a>
+            </div>
+            <div class="
+              cursor-pointer
+              text-kwtextgrey
+              md:hidden">
+              <i title="Open filters" class="fa-solid fa-bars fa-2xl"></i>
+            </div>
+            <div class="hidden md:flex flex-none font-normal">
+                <a
+                  href="/"
+                  class="{% if page != 'home' %}hover:text-kworange-500 {% endif %} active:text-kworange me-8 auppercase qtracking-widest text-[1.1em] {% if page == 'home' %} text-kworange{% endif %}">Browse</a>
+                <a
+                  href="/download"
+                  class="{% if page != 'download' %}hover:text-kworange-500 {% endif %} active:text-kworange auppercase qtracking-widest text-[1.1em] {% if page == 'download' %} text-kworange{% endif %}" >Download</a>
+            </div>
+        </div>
+      </nav>
+    </header>
+
+    {% if page == 'home' %}
+    <div class="
+      md:hidden
+
+      asticky
+      abottom-0
+      w-[100%]
+    ">
+
+      <div class="
+        bg-kworange
+        kiwix-mini-download-open-downshadow
+
+        h-[0.9rem]
+        axxs-[1.5rem]
+        axs:h-[1.5rem]
+        asm:h-[2rem]
+
+        w-[100%]
+      "></div>
+
+      <div class="w-[100%] flex">
+        <div class="flex-col w-[33%]"></div>
+
+        <div
+        id="open-download-drawer"
+        class="
+          flex-col
+
+          w-[34%]
+          h-[1.2rem]
+          xxs:h-[1.6rem]
+          xs:h-[2rem]
+          sm:h-[2.4rem]
+
+          text-[0.7rem]
+          xxs:text-[0.8rem]
+          xs:text-[1rem]
+          sm:text-[1.2rem]
+
+          text-white
+          hover:text-kwbgwhitehover
+
+          font-normal
+          xs:font-medium
+          sm:font-medium
+
+          text-center
+
+          cursor-pointer
+
+          bg-contain
+          bg-origin-content
+          bg-no-repeat
+          bg-center-top
+        " style="background-image: url(assets/open-down-orange.png); "><a href="/download">DOWNLOADS</a></div>
+
+        <div class="flex-col w-[33%]"></div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="
+      {% if page == 'download' %}
+        bg-kworange kiwix-download-innerglow
+      {% else %}
+        bg-kwfiltersgrey kiwix-home-innerglow
+      {% endif %}
+
+      hidden
+      md:flex
+
+      items-center align-left
+      h-[4.2rem]
+    ">
+      <nav class="
+        content-max-w
+        content-w
+        mx-auto flex">
+        <div class="text-start me-[2em] xl:me-[4em]">
+          <button
+            id="sort-by-name"
+            value="name"
+            class="kiwix-{{ page }}-btn kiwix-{{ page }}-btn-active kiwix-sort-btn kiwix-sort-btn-active"
+          >Title</button>
+          <button
+            id="sort-by-size"
+            value="size"
+            class="kiwix-{{ page }}-btn kiwix-sort-btn ml-[-1.8em]"
+          >Size</button>
+          <button
+            id="order-desc"
+            value="desc"
+            class="kiwix-{{ page }}-btn kiwix-{{ page }}-btn-active kiwix-order-dir-btn kiwix-order-dir-btn-active ms-6"
+          ><i title="Descending order" class="fa-solid fa-arrow-down"></i></button>
+          <button
+            id="order-asc"
+            value="asc"
+            class="kiwix-{{ page }}-btn kiwix-order-dir-btn"
+          ><i title="Ascending order" class="fa-solid fa-arrow-up"></i></button>
+        </div>
+        <div class="text-center me-[2em] xl:me-[4em]">
+          <label
+            for="languages-list"
+            class="hidden lg:inline-block kiwix-{{page }}-filter-label text-[0.9em]"
+          >Languages</label>
+          <select
+            id="languages-list"
+            class="select select-bordered select-sm max-w-xs"
+          >
+            <option value="">All</option>
+            {% for code, name in languages.items() %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
+          </select>
+        </div>
+        <div  class="text-start">
+          <label
+            for="categories-list"
+            class="hidden lg:inline-block kiwix-{{page }}-filter-label  text-[0.9em]"
+          >Categories</label>
+          <select
+            id="categories-list"
+            class="select select-bordered select-sm max-w-xs"
+          >
+            <option value="">All</option>
+            {% for category in categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
+          </select>
+        </div>
+      </nav>
+    </div>
+{% block entries %}
+{% endblock %}
+    <footer class="
+      footer
+      footer-left
+      bg-kworange
+      text-white
+      rounded
+      mt-[5em]
+    ">
+      <div class="
+        content-max-w
+        mx-auto
+        w-[100%]
+        p-5 pl-2.5
+      ">
+        <nav class="content-w">
+          {% for link in links %}
+          <a
+            href="{{ link.url }}"
+            class="link link-hover me-5 last:me-0">{% if link.icon %}<i class="fa fa-lock fa-sm me-1"></i>{% endif %}{{ link.name }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+    </footer>
+
+    {% if page == 'download' %}
+    <div class="
+      md:hidden
+
+      bg-kwfiltersgrey
+
+      sticky
+      bottom-0
+      w-[100%]
+    ">
+
+      <div class="
+        bg-kworange
+
+        h-[1.5rem]
+        xxs-[1.5rem]
+        xs:h-[1.5rem]
+        sm:h-[2rem]
+
+        w-[100%]
+
+        kiwix-mini-download-close-uppershadow
+      "></div>
+
+      <div class="w-[100%] flex">
+        <div class="flex-col w-[33%]"></div>
+
+        <div
+        id="close-download-drawer"
+        class="
+          flex-col
+
+          w-[34%]
+          h-[2rem]
+
+          text-white
+          hover:text-kwbgwhitehover
+
+          font-normal
+          xs:font-medium
+          sm:font-medium
+
+          text-[0.9rem]
+          xxs:text-[0.9rem]
+          xs:text-[1.1rem]
+          sm:text-[1.2rem]
+
+          text-center
+
+          cursor-pointer
+
+          bg-contain
+          bg-origin-content
+          bg-no-repeat
+          bg-center-top
+        " style="background-image: url(assets/close-down-orange.png);"><a href="/">CLOSE</a></div>
+
+        <div class="flex-col w-[33%]"></div>
+      </div>
+
+      <div class="
+        w-[100%]
+
+        h-[0]
+        xxs:h-[0]
+        xs:h-[0.5rem]
+        sm:h-[0.5rem]
+      "></div>
+    </div>
+    {% endif %}
+
+    <script type="text/javascript" src="/assets/dashboard.js">
+    </script>
+  </body>
+</html>
