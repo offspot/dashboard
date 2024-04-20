@@ -25,7 +25,6 @@ jobs:
           platforms: |
             linux/amd64
             linux/arm64
-          context: dashboard
           registries: ghcr.io
           credentials:
             GHCRIO_USERNAME=${{ secrets.GHCR_USERNAME }}
