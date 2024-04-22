@@ -171,18 +171,20 @@ function run() {
     addClass(document.getElementById('readers-banner'), 'hidden');
   });
 
-  live('.hotspot-entry', 'click', function(el, ev){
-    ev.preventDefault();
-    ev.stopPropagation();
-    let target = '';
-    if (hasClass(el, 'hotspot-entry')) {
-      target = el.getAttribute('data-target');
-    } else { // should not happen
-      let entryEl = el.closest('.hotspot-entry');
-      target = entryEl.getAttribute('data-target');
-    }
-    window.location.assign(target);
-  });
+  if (page == "home") {
+    live('.hotspot-entry', 'click', function(el, ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      let target = '';
+      if (hasClass(el, 'hotspot-entry')) {
+        target = el.getAttribute('data-target');
+      } else { // should not happen
+        let entryEl = el.closest('.hotspot-entry');
+        target = entryEl.getAttribute('data-target');
+      }
+      window.location.assign(target);
+    });
+  }
 
   var filter = new Filtering();
 
