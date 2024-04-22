@@ -15,6 +15,9 @@
     - PyYAML
     - libzim
 """
+
+from __future__ import annotations
+
 import base64
 import os
 import pathlib
@@ -66,7 +69,7 @@ def get_entry_for(
     flavour = get_metadata(zim, "Flavour")
     ident = f"{publisher}:{name}:{flavour}"
     icon = None
-    if zim.has_illustration and 48 in zim.get_illustration_sizes():
+    if zim.has_illustration and 48 in zim.get_illustration_sizes():  # noqa: PLR2004
         icon = base64.b64encode(bytes(zim.get_illustration_item(48).content)).decode(
             "ASCII"
         )
@@ -97,7 +100,10 @@ def get_entry_for(
 
 
 def refresh_zims(
-    packages_path: pathlib.Path, zims_dir: pathlib.Path, debug: bool | None = False
+    packages_path: pathlib.Path,
+    zims_dir: pathlib.Path,
+    *,
+    debug: bool | None = False,  # noqa: ARG001
 ):
     print(f"refreshing ZIMs from {zims_dir=}")
     try:

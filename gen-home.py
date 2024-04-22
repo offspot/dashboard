@@ -13,17 +13,18 @@
     - humanfriendly
 """
 
+from __future__ import annotations
+
 import os
 import pathlib
 import re
 import traceback
 import urllib.parse
-from collections.abc import Iterable
 
 import humanfriendly
 import iso639
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 import yaml
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 try:
     from yaml import CSafeLoader as SafeLoader
@@ -58,7 +59,7 @@ def format_fsize(size: str | int) -> str:
     if size > one_gib and size >= 100 * one_gib:
         size = round_to(size, one_gib)
     elif size > one_gib:
-        size = size = round_to(size, hundred_mib)
+        size = round_to(size, hundred_mib)
     else:
         size = round_to(size, one_mib)
     try:
@@ -85,7 +86,7 @@ def normalize(url: str) -> str:
 
 
 class Conf:
-    debug: bool = bool(os.getenv("DEBUG", False))
+    debug: bool = bool(os.getenv("DEBUG", ""))
     fqdn: str = ""
     name: str = ""
     footer_note: str = ""
@@ -103,7 +104,7 @@ class Conf:
 
 
 class Link(dict):
-    MANDATORY_FIELDS = ["name", "url"]
+    MANDATORY_FIELDS = ("name", "url")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -111,7 +112,7 @@ class Link(dict):
 
 
 class Reader(dict):
-    MANDATORY_FIELDS = ["platform", "url", "size"]
+    MANDATORY_FIELDS = ("platform", "url", "size")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -137,7 +138,7 @@ class Reader(dict):
 
 
 class Package(dict):
-    MANDATORY_FIELDS = ["title", "url"]
+    MANDATORY_FIELDS = ("title", "url")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -160,7 +161,7 @@ class Package(dict):
         if self.get("disabled", False):
             return False
         try:
-            return all([self[key] for key in self.MANDATORY_FIELDS])
+            return all(self[key] for key in self.MANDATORY_FIELDS)
         except KeyError:
             return False
 
@@ -215,5 +216,5 @@ if __name__ == "__main__":
     gen_home(packages_path)
 
     if Conf.debug:
-        with open(dest_dir / "index.html", "r") as fh:
+        with open(dest_dir / "index.html") as fh:
             print(fh.read())
