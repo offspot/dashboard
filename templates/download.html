@@ -34,111 +34,6 @@
         ">DOWNLOADS</h2>
       </div>
 
-      {% if readers %}
-      <div id="readers-banner" class="
-
-        relative
-
-        hidden
-        flex flex-row
-
-        bg-kwordergrey-500
-        md:bg-kwreaderbggrey
-        text-white
-
-        rounded-lg
-
-        h-[6.3rem]
-        mb-2 px-[1rem] py-[0.6rem]
-      ">
-          <div class="
-            flex-none flex
-            items-center
-            w-[2em]
-            me-[1em]
-          ">
-            <img class="flex-none rounded-xl mr-1.5 size-[30px] " src="/assets/kiwix-bird-white.png" />
-          </div>
-          <div class="
-            flex-none flex
-            items-center
-
-            w-[4em]
-            sm:w-[10em]
-            lg:w-[10em]
-            xl:w-[17em]
-            2xl:w-[20em]
-
-            me-[1em]
-            ">
-            <h2 class="flex-auto text-lg text-left">Kiwix Reader</h2>
-          </div>
-          <div class="
-            flex
-            flex-none
-            sm:flex-col
-
-            items-center
-
-            items-left
-
-            sm:w-[25em]
-            md:w-[33em]
-            lg:w-[33em]
-            xl:w-[42em]
-            2xl:w-[55em]
-
-          ">
-            <div class="
-              text-[0.9em]
-              leading-[1.3em]
-              xl:leading-[2.2em]
-
-              sm:me-[3em]
-              sm:mb-[1em]
-
-              hidden
-              sm:inline
-
-            ">Download a reader software for your device's platform to use ZIM files locally.
-            </div>
-            <div class="
-              grid
-              gap-x-2
-              gap-y-2
-              zauto-cols-min
-              grid-cols-2m
-
-
-              sm:inline-block
-              ">
-              {% for reader in readers %}
-              <a
-                href="{{ reader.url }}"
-                data-size="{{ reader.size }}"
-                class="
-                  kiwix-reader-platform-btn
-                  items-center
-                "><i class="fa fa-download fa-sm"></i>
-                  <span class="xs:hidden sm:hidden"><i class="fa-brands fa-{{ reader.icon }}"></i></span>
-                  <span class="hidden xs:inline sm:inline">{{ reader.name }}</span></a>
-              {% endfor %}
-            </div>
-          </div>
-
-          <div aclass="flex-none w-[1.5em] text-center  flex items-center ms-[1em]"
-            class="absolute top-[0.6em] right-[1.4em]"
-          >
-              <!-- <div class="hover:text-kwreaderhover text-white cursor-pointer text-center text-[1.5em] leading-[1.5em] h-[1.5em] p-0"> -->
-                <i id="remove-readers-banner-btn" class="
-                  fa fa-xmark
-                  hover:text-kwreaderhover text-white cursor-pointer text-center text-[1.5em]
-                "></i>
-              <!-- </div> -->
-          </div>
-        </div>
-        {% endif %}
-
         {% for package in packages %}
         {% if package.download and package.download.size %}
         <div
@@ -310,4 +205,113 @@
       <p>No content packages 🙁</p>
       {% endfor %}
     </section>
+
+    {% if readers %}
+    <section
+      id="entries"
+      class="
+        content-max-w
+        content-w
+        mx-auto
+
+        my-4
+
+        justify-center
+        box-border
+
+        auto-cols-min
+        grid grid-cols-1f
+        gap-y-2"
+    >
+      <div id="readers-banner" class="
+
+        relative
+
+        hidden
+        flex flex-row
+
+        bg-kwordergrey-500
+        md:bg-kwreaderbggrey
+        text-white
+
+        rounded-lg
+
+        h-[6.3rem]
+        mb-2 px-[1rem] py-[0.6rem]
+      ">
+          <div class="
+            flex-none flex
+            items-center
+            w-[2em]
+            me-[1em]
+          ">
+            <img class="flex-none rounded-xl mr-1.5 size-[30px] " src="/assets/kiwix-bird-white.png" />
+          </div>
+          <div class="
+            flex-none flex
+            items-center
+
+            w-[3em]
+            sm:w-[10em]
+            lg:w-[10em]
+            xl:w-[17em]
+            2xl:w-[20em]
+
+            me-[1em]
+            ">
+            <h2 class="flex-auto text-lg text-left">Kiwix</h2>
+          </div>
+          <div class="
+            flex
+            flex-none
+            sm:flex-col
+
+            items-center
+
+            sm:w-[25em]
+            md:w-[33em]
+            lg:w-[33em]
+            xl:w-[42em]
+            2xl:w-[55em]
+
+          ">
+            <div class="
+              text-[0.9em]
+              leading-[1.3em]
+              xl:leading-[2.2em]
+
+              sm:me-[1em]
+              sm:mb-[1em]
+
+              hidden
+              sm:inline
+
+            ">Download a reader software for your device's platform to use ZIM files locally.
+            </div>
+            <div class="
+              grid
+              gap-x-2
+              gap-y-2
+              grid-cols-2m
+
+
+              sm:inline-block
+              ">
+              {% for reader in readers %}
+              <a
+                href="{{ reader.url }}"
+                data-size="{{ reader.size }}"
+                class="
+                  kiwix-reader-platform-btn
+                  items-center
+                "><i class="fa fa-download fa-sm"></i>
+                  <span class="hidden xs:hidden sm:hidden"><i class="fa-brands fa-{{ reader.icon }}"></i></span>
+                  <span class="xs:inline sm:inline">{{ reader.name }}</span></a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+        {% endif %}
+
 {% endblock %}

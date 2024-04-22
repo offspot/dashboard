@@ -157,19 +157,6 @@ const Filtering = class {
 
 function run() {
   var page = document.querySelector('body').getAttribute('data-page');
-  var bannerCookieName = 'remove-readers-banner';
-
-  // retore readers banner if there's no cookie preventing it
-  if (!getCookie(bannerCookieName)) {
-    try {
-      removeClass(document.getElementById('readers-banner'), 'hidden');
-    } catch {}
-  }
-
-  live('#remove-readers-banner-btn', 'click', function(el, ev) {
-    setCookie(bannerCookieName, 'true', 3600 /* 1h */);
-    addClass(document.getElementById('readers-banner'), 'hidden');
-  });
 
   if (page == "home") {
     live('.hotspot-entry', 'click', function(el, ev){
