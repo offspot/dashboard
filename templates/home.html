@@ -64,7 +64,7 @@
           "
           data-target="{{ package.url }}"
           data-category="{{ package.category }}"
-          data-langs="{% if package.langs %}{% for lang in package.languages %}{{ lang }} {% endfor %}{% endif %}"
+          data-langs="{% if package.langs %}{% for lang in package.langs %}{{ lang.alpha_3 }} {% endfor %}{% endif %}"
           data-name="{{ package.title }}"
           data-size="{% if package.download and package.download.size %}{{ package.download.size }}{% else %}0{% endif %}"
         >
@@ -147,7 +147,7 @@
 
               ">
                 {% for lang in package.langs %}
-                {% if loop.index0 <= 2 and lang != 'mu' %}
+                {% if loop.index0 <= 2 and lang.alpha_3 != 'mul' %}
                 <div class="
                   rounded-md
                   border-kwbordergrey
@@ -170,7 +170,7 @@
 
                   md:mb-1
                   md:last:mb-1
-                "><div class="text-[0.7em] pt-[0.1em] uppercase">{{ lang }}</div></div>
+                "><div class="text-[0.7em] pt-[0.1em] uppercase" title="{{ lang.native }}">{{ lang.alpha_2 }}</div></div>
                 {% endif %}
                 {% endfor %}
               </div>

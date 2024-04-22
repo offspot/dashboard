@@ -164,7 +164,7 @@
             "
           data-target="{{ package.url }}"
           data-category="{{ package.category }}"
-          data-langs="{% if package.langs %}{% for lang in package.languages %}{{ lang }} {% endfor %}{% endif %}"
+          data-langs="{% if package.langs %}{% for lang in package.langs %}{{ lang }} {% endfor %}{% endif %}"
           data-name="{{ package.title }}"
           data-size="{% if package.download and package.download.size %}{{ package.download.size }}{% else %}0{% endif %}">
 
@@ -267,7 +267,8 @@
               {% if loop.index0 < 2 %}
               <span
                 class="rounded-md border-kwbordergrey border-solid border text-center text-[0.7em] pt-[0.32em] pb-[0.32em] px-[0.3em] uppercase me-1 last:me-0"
-              >{{ lang }}</span>
+                title="{{ lang.native }}"
+              >{{ lang.alpha_2 }}</span>
               {% endif %}
               {% endfor %}
               {% endif %}

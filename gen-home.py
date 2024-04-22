@@ -15,6 +15,8 @@
 
 from __future__ import annotations
 
+import collections
+import gettext
 import os
 import pathlib
 import re
@@ -22,7 +24,7 @@ import traceback
 import urllib.parse
 
 import humanfriendly
-import iso639
+import pycountry
 import yaml
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -32,6 +34,9 @@ except ImportError:
     # we don't NEED cython ext but it's faster so use it if avail.
     from yaml import SafeLoader
 
+LanguageDef = collections.namedtuple(
+    "LanguageDef", ["alpha_3", "alpha_2", "native", "english"]
+)
 
 src_dir = pathlib.Path(os.getenv("SRC_DIR", "/src")).expanduser().resolve()
 packages_path = (
@@ -68,6 +73,33 @@ def format_fsize(size: str | int) -> str:
         ).replace("iB", "B")
     except Exception:
         return str(size)
+
+
+def get_lang_def(alpha_3: str) -> LanguageDef:
+    """LanguageDef tuple with parsed/prepared language info"""
+    try:
+        language = pycountry.languages.get(alpha_3=alpha_3)
+        if not language:
+            raise ValueError("")
+    except Exception:
+        return LanguageDef(alpha_3, alpha_3[:2], alpha_3, alpha_3)
+
+    try:
+        alpha_2 = language.alpha_2
+    except AttributeError:
+        alpha_2 = alpha_3[:2]
+
+    try:
+        translator = gettext.translation(
+            "iso639-3", pycountry.LOCALES_DIR, languages=[alpha_2]
+        )
+        native = translator.gettext(language.name).title()
+    except Exception:
+        native = language.name
+
+    return LanguageDef(
+        alpha_3=alpha_3, alpha_2=alpha_2, native=native, english=language.name
+    )
 
 
 env.filters["fsize"] = format_fsize
@@ -166,8 +198,8 @@ class Package(dict):
             return False
 
     @property
-    def langs(self) -> list[str]:
-        return [lang[:2] for lang in self.get("languages", [])]
+    def langs(self) -> list[LanguageDef]:
+        return [get_lang_def(lang) for lang in self.get("languages", [])]
 
 
 def gen_home(fpath: pathlib.Path):
@@ -186,8 +218,8 @@ def gen_home(fpath: pathlib.Path):
     context["languages"] = {}
     context["categories"] = set()
     for package in context["packages"]:
-        for lang in package.get("languages", []):
-            context["languages"][lang] = iso639.Lang(lang).name
+        for lang in package.langs:
+            context["languages"][lang.alpha_3] = lang.native
         for tag in package.get("tags", []):
             if tag.startswith("_category:"):
                 package["category"] = tag.split(":", 1)[-1]
