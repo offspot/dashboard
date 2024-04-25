@@ -48,6 +48,7 @@ RUN apk del apk-tools ca-certificates-bundle
 
 COPY gen-home.py refresh-zims.py tailwind.config.js /src/
 COPY templates /src/templates
+COPY branding /var/www/branding
 COPY assets /var/www/assets
 COPY fallback.html /var/www/fallback.html
 COPY home.yaml /src/
