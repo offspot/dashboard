@@ -79,6 +79,13 @@ const Filtering = class {
     this.only_category = only_category || this.only_category;
   }
 
+  reset() {
+    this.order_by = 'name';
+    this.order_dir = '';
+    this.only_lang = '';
+    this.only_category = '';
+  }
+
   toString() {
     return `order_by=${this.order_by}, order_dir=${this.order_dir}, only_lang=${this.only_lang}, only_category=${this.only_category}`
   }
@@ -191,12 +198,13 @@ function run() {
       return;
     const btns = document.getElementsByClassName('kiwix-sort-btn');
     for (var i=0; i<btns.length; i++) {
+      const is_mobile = btns[i].className.indexOf('kiwix-mobile-') >= 0;
       if (btns[i] == el) {
         addClass(btns[i], 'kiwix-sort-btn-active');
-        addClass(btns[i], `kiwix-${page}-btn-active`);
+        addClass(btns[i], is_mobile ? `kiwix-mobile-btn-active` : `kiwix-${page}-btn-active`);
       } else {
         removeClass(btns[i], 'kiwix-sort-btn-active');
-        removeClass(btns[i], `kiwix-${page}-btn-active`);
+        removeClass(btns[i], is_mobile ? `kiwix-mobile-btn-active` : `kiwix-${page}-btn-active`);
       }
     }
     filter.order_by = el.value;
@@ -207,7 +215,8 @@ function run() {
       return;
     const btns = document.getElementsByClassName('kiwix-order-dir-btn');
     for (var i=0; i<btns.length; i++) {
-      toggleClass(btns[i], `kiwix-${page}-btn-active`);
+      const is_mobile = btns[i].className.indexOf('kiwix-mobile-') >= 0;
+      toggleClass(btns[i], is_mobile ? `kiwix-mobile-btn-active` : `kiwix-${page}-btn-active`);
     }
     filter.order_dir = el.value;
     filter.render(true);
@@ -223,6 +232,61 @@ function run() {
     window.location.assign("/download");
   }
 
+  function onOpenMobileFiltersButtonClick(el, ev) {
+    // open filters on mobile
+    removeClass(document.getElementById("mobile-filters"), "hidden");
+  }
+
+  function onCloseMobileFiltersButtonClick(el, ev) {
+    // close filters on mobile
+    addClass(document.getElementById("mobile-filters"), "hidden");
+  }
+
+  function toggleMobileLanguageFilterButtonClick(el, ev) {
+    const was_active = (filter.only_lang == el.value);
+    const className = 'kiwix-mobile-filter-btn-active';
+    const btns = document.querySelectorAll('#mobile-filters .lang-filter-btn');
+    for (var i=0; i<btns.length; i++) {
+      removeClass(btns[i], className);
+    }
+    if (!was_active)  // only set active if was not set
+      addClass(el, className);
+    filter.only_lang = was_active ? '' : el.value; // remove filter if was active
+    filter.render();
+  }
+
+  function toggleMobileCategoryFilterButtonClick(el, ev) {
+    const was_active = (filter.only_category == el.value);
+    const className = 'kiwix-mobile-filter-btn-active';
+    const btns = document.querySelectorAll('#mobile-filters .category-filter-btn');
+    for (var i=0; i<btns.length; i++) {
+      removeClass(btns[i], className);
+    }
+    if (!was_active)  // only set active if was not set
+      addClass(el, className);
+    filter.only_category = was_active ? '' : el.value; // remove filter if was active
+    filter.render();
+  }
+
+  function resetMobileFiltersButtonClick(el, ev) {
+    classNames = ['kiwix-sort-btn-active', 'kiwix-mobile-filter-btn-active', 'kiwix-order-dir-btn-active', 'kiwix-mobile-btn-active'];
+    classNames.forEach(function (className) {
+      const btns = document.querySelectorAll(`#mobile-filters .${className}`);
+      for (var i=0; i<btns.length; i++) {
+        removeClass(btns[i], className);
+      }
+    });
+    document.querySelectorAll('#sort-by-name').forEach(function (el) {
+      addClass(el, 'kiwix-sort-btn-active');
+      addClass(el, 'kiwix-mobile-btn-active');
+    });
+    document.querySelectorAll('#order-desc').forEach(function (el) {
+      addClass(el, 'kiwix-mobile-btn-active');
+    });
+    filter.reset();
+    filter.render();
+  }
+
   live('#sort-by-name', 'click', onSortByButtonClick);
   live('#sort-by-natural', 'click', onSortByButtonClick);
   live('#sort-by-size', 'click', onSortByButtonClick);
@@ -231,6 +295,14 @@ function run() {
 
   live('#close-download-drawer', 'click', onCloseDownloadDrawerButtonClick);
   live('#open-download-drawer', 'click', onOpenDownloadDrawerButtonClick);
+
+  live('#close-mobile-filters', 'click', onCloseMobileFiltersButtonClick);
+  live('#open-mobile-filters', 'click', onOpenMobileFiltersButtonClick);
+
+  live('#mobile-filters .lang-filter-btn', 'click', toggleMobileLanguageFilterButtonClick)
+  live('#mobile-filters .category-filter-btn', 'click', toggleMobileCategoryFilterButtonClick)
+
+  live('#reset-filters', 'click', resetMobileFiltersButtonClick)
 
   filter.render(true);
 }

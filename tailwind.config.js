@@ -15,7 +15,7 @@ module.exports = {
     extend: {
       screens: {
         'xxs': {'min': '376px', 'max': '439px'},
-        'xs': {'min': '450px', 'max': '639px'},
+        'xs': {'min': '440px', 'max': '639px'},
       },
       colors: {
         kwwhite: '#eef2f6',

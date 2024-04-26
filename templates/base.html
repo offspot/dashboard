@@ -42,10 +42,13 @@
                   class="object-scale-down w-[11rem] h-[6rem] object-left" />
               </a>
             </div>
-            <div class="
-              cursor-pointer
-              text-kwtextgrey
-              md:hidden">
+            <div
+              id="open-mobile-filters"
+              class="
+                cursor-pointer
+                text-kwtextgrey
+                md:hidden
+              ">
               <i title="Open filters" class="fa-solid fa-bars fa-2xl"></i>
             </div>
             <div class="hidden md:flex flex-none font-normal">
@@ -285,6 +288,95 @@
       "></div>
     </div>
     {% endif %}
+
+    <div
+      id="mobile-filters"
+      class="
+        hidden
+
+        bg-kwfiltersgrey
+
+        w-[19rem]
+        xxs:w-[19rem]
+        xs:w-[23rem]
+        sm:w-[30rem]
+        md:hidden
+        h-[100%]
+        fixed
+        top-0
+        right-0
+
+        items-center
+        align-left
+
+        mobile-filters-shadow
+
+        p-[1em]
+
+        text-kwtextgrey
+
+        overflow-y-scroll
+        "
+    >
+
+      <div class="
+          m-[2em]
+          text-right
+          cursor-pointer
+        "
+        id="close-mobile-filters"
+        title="Close filters">
+        <i class="fa fa-xmark fa-2xl"></i>
+      </div>
+
+      <div class="
+          grid-cols-1
+        ">
+        <h3 class="text-[1.2em] font-semibold mb-1">Sort by</h3>
+        <div class="text-center text-[1.5em]">
+          <button
+            id="sort-by-name"
+            value="name"
+            class="kiwix-mobile-btn kiwix-mobile-btn-active kiwix-sort-btn kiwix-sort-btn-active rounded-[1.5em]"
+          >Title</button>
+          <button
+            id="sort-by-size"
+            value="size"
+            class="kiwix-mobile-btn kiwix-sort-btn ml-[-1.8em] rounded-[1.5em]"
+          >Size</button>
+        </div>
+        <h3 class="text-[1.2em] font-semibold mt-[2em]">Order</h3>
+        <div class="text-center text-[1.5em]">
+          <button
+            id="order-desc"
+            value="desc"
+            class="kiwix-mobile-btn kiwix-mobile-btn-active kiwix-order-dir-btn kiwix-order-dir-btn-active rounded-[1.5em] w-[5em]"
+          ><i title="Descending order" class="fa-solid fa-arrow-down"></i></button>
+          <button
+            id="order-asc"
+            value="asc"
+            class="kiwix-mobile-btn kiwix-order-dir-btn  rounded-[1.5em] w-[5em]"
+          ><i title="Ascending order" class="fa-solid fa-arrow-up"></i></button>
+        </div>
+
+      <h3 class="text-[1.2em] font-semibold mt-[2em]">Languages</h3>
+      <div>
+        {% for code, name in languages.items() %}<button value="{{ code }}" class="lang-filter-btn kiwix-mobile-filter-btn">{{ name }}</option>{% endfor %}
+      </div>
+      <h3 class="text-[1.2em] font-semibold mt-[2em]">Categories</h3>
+      <div>
+        {% for category in categories %}<button value="{{ category }}" class="category-filter-btn kiwix-mobile-filter-btn">{{ category }}</option>{% endfor %}
+      </div>
+
+      <hr class="mt-[2em] mb-[2em] border-kwtagbggrey border-t-1" />
+
+      <div class="text-center text-[1.5em]">
+        <button
+            id="reset-filters"
+            class="kiwix-mobile-btn rounded-[1.5em] w-[5em]"
+          ><i title="Reset filters" class="fa-solid fa-trash-can"></i> Reset</button>
+      </div>
+    </div>
 
     <script type="text/javascript" src="/assets/dashboard.js">
     </script>

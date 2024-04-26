@@ -105,6 +105,20 @@ select {
     @apply z-50 pr-[2em] hover:cursor-default;
   }
 
+  .kiwix-mobile-btn {
+    @apply hover:bg-kwordergrey-600 hover:text-white bg-kwordergrey-100 text-kwwhite;
+  }
+  .kiwix-mobile-btn-active {
+    @apply border-white text-kworange bg-white drop-shadow-md hover:text-kworange-100 hover:bg-white hover:cursor-default;
+  }
+
+  .kiwix-mobile-filter-btn {
+    @apply mr-0 last:mr-0 cursor-pointer box-border px-[2em] py-0 text-[0.9em] leading-[1.1em] h-[2em] rounded-2xl min-w-[3em] md:min-w-[6em]  relative z-40 pr-[1.8em] drop-shadow-none kiwix-mobile-btn mb-1 me-1;
+  }
+  .kiwix-mobile-filter-btn-active {
+   @apply border-white text-kworange-100 bg-white drop-shadow-md hover:text-kworange-100 hover:bg-white hover:cursor-default;
+  }
+
   .kiwix-download-filter-label {
     @apply text-white;
   }
@@ -161,6 +175,10 @@ select {
   }
   .hide-after-2:nth-child(3), .hide-after-2:nth-child(4) {
     @apply hidden;
+  }
+
+  .mobile-filters-shadow {
+    filter: drop-shadow(-0.5em 0 0.6em #6f8291);
   }
 }
 
