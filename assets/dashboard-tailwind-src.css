@@ -102,7 +102,7 @@ select {
     @apply mr-0 last:mr-0 cursor-pointer box-border px-[2em] py-0 text-[0.9em] leading-[1.1em] h-[2em] rounded-2xl min-w-[3em] md:min-w-[6em]  relative z-40 pr-[1.8em] drop-shadow-none;
   }
   .kiwix-sort-btn-active {
-    @apply z-50 pr-[2em] hover:cursor-default;
+    @apply z-50 hover:cursor-default;
   }
 
   .kiwix-mobile-btn {

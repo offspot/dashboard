@@ -1,3 +1,5 @@
+var page = "home"; // default, updated in run()
+
 // matches polyfill
 this.Element && function(ElementPrototype) {
     ElementPrototype.matches = ElementPrototype.matches ||
@@ -151,6 +153,8 @@ const Filtering = class {
         addClass(elems[i], 'hidden');
     }
 
+    this.renderStatuses();
+
     if (!withSorting)
       return;
 
@@ -160,10 +164,67 @@ const Filtering = class {
       elems[i].style.order = sortedElems.indexOf(elems[i]);
     }
   };
+
+  renderStatuses() {
+    var thefilter = this;
+    // set button statuses based on filter
+    function updateOrder() {
+      const btns = document.getElementsByClassName('kiwix-sort-btn');
+      // const btns = document.getElementsByClassName('kiwix-order-dir-btn');
+      for (var i=0; i<btns.length; i++) {
+        let funcClass = (btns[i].value == thefilter.order_by) ? addClass : removeClass;
+        funcClass(btns[i], `kiwix-mobile-btn-active`);
+        funcClass(btns[i], `kiwix-${page}-btn-active`);
+      }
+    }
+
+    function updateSort() {
+      // large sort btn
+      // const btns = document.getElementsByClassName('kiwix-sort-btn');
+      const btns = document.getElementsByClassName('kiwix-order-dir-btn');
+      for (var i=0; i<btns.length; i++) {
+        let funcClass = (btns[i].value == thefilter.order_dir) ? addClass : removeClass;
+        funcClass(btns[i], 'kiwix-sort-btn-active');
+        funcClass(btns[i], 'kiwix-mobile-btn-active');
+        funcClass(btns[i], `kiwix-${page}-btn-active`);
+      }
+    }
+
+    function updateLang() {
+      // mobile
+      const className = 'kiwix-mobile-filter-btn-active';
+      const btns = document.querySelectorAll('#mobile-filters .lang-filter-btn');
+      for (var i=0; i<btns.length; i++) {
+        let funcClass = (btns[i].value == thefilter.only_lang) ? addClass : removeClass;
+        funcClass(btns[i], className);
+      }
+
+      const select = document.getElementById('languages-list');
+      select.value = thefilter.only_lang;
+    }
+
+    function updateCategory() {
+      const className = 'kiwix-mobile-filter-btn-active';
+      const btns = document.querySelectorAll('#mobile-filters .category-filter-btn');
+      for (var i=0; i<btns.length; i++) {
+        let funcClass = (btns[i].value == thefilter.only_category) ? addClass : removeClass;
+        funcClass(btns[i], className);
+      }
+
+      const select = document.getElementById('categories-list');
+      select.value = thefilter.only_category;
+    }
+
+
+    updateOrder();
+    updateSort();
+    updateLang();
+    updateCategory();
+  };
 };
 
 function run() {
-  var page = document.querySelector('body').getAttribute('data-page');
+  page = document.querySelector('body').getAttribute('data-page');
 
   if (page == "home") {
     live('.hotspot-entry', 'click', function(el, ev){
@@ -196,28 +257,12 @@ function run() {
   function onSortByButtonClick (el, ev) {
     if (filter.order_by == el.value)
       return;
-    const btns = document.getElementsByClassName('kiwix-sort-btn');
-    for (var i=0; i<btns.length; i++) {
-      const is_mobile = btns[i].className.indexOf('kiwix-mobile-') >= 0;
-      if (btns[i] == el) {
-        addClass(btns[i], 'kiwix-sort-btn-active');
-        addClass(btns[i], is_mobile ? `kiwix-mobile-btn-active` : `kiwix-${page}-btn-active`);
-      } else {
-        removeClass(btns[i], 'kiwix-sort-btn-active');
-        removeClass(btns[i], is_mobile ? `kiwix-mobile-btn-active` : `kiwix-${page}-btn-active`);
-      }
-    }
     filter.order_by = el.value;
     filter.render(true);
   }
   function onOrderDirButtonClick (el, ev) {
     if (filter.order_dir == el.value)
       return;
-    const btns = document.getElementsByClassName('kiwix-order-dir-btn');
-    for (var i=0; i<btns.length; i++) {
-      const is_mobile = btns[i].className.indexOf('kiwix-mobile-') >= 0;
-      toggleClass(btns[i], is_mobile ? `kiwix-mobile-btn-active` : `kiwix-${page}-btn-active`);
-    }
     filter.order_dir = el.value;
     filter.render(true);
   }
@@ -244,26 +289,12 @@ function run() {
 
   function toggleMobileLanguageFilterButtonClick(el, ev) {
     const was_active = (filter.only_lang == el.value);
-    const className = 'kiwix-mobile-filter-btn-active';
-    const btns = document.querySelectorAll('#mobile-filters .lang-filter-btn');
-    for (var i=0; i<btns.length; i++) {
-      removeClass(btns[i], className);
-    }
-    if (!was_active)  // only set active if was not set
-      addClass(el, className);
     filter.only_lang = was_active ? '' : el.value; // remove filter if was active
     filter.render();
   }
 
   function toggleMobileCategoryFilterButtonClick(el, ev) {
     const was_active = (filter.only_category == el.value);
-    const className = 'kiwix-mobile-filter-btn-active';
-    const btns = document.querySelectorAll('#mobile-filters .category-filter-btn');
-    for (var i=0; i<btns.length; i++) {
-      removeClass(btns[i], className);
-    }
-    if (!was_active)  // only set active if was not set
-      addClass(el, className);
     filter.only_category = was_active ? '' : el.value; // remove filter if was active
     filter.render();
   }
