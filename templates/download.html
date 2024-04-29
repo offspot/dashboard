@@ -59,7 +59,7 @@
             "
           data-target="{{ package.url }}"
           data-category="{{ package.category }}"
-          data-langs="{% if package.langs %}{% for lang in package.langs %}{{ lang }} {% endfor %}{% endif %}"
+          data-langs="{% if package.langs %}{% for lang in package.langs %}{{ lang.alpha_3 }} {% endfor %}{% endif %}"
           data-name="{{ package.title }}"
           data-size="{% if package.download and package.download.size %}{{ package.download.size }}{% else %}0{% endif %}">
 
