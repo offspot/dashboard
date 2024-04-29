@@ -67,8 +67,6 @@
     <div class="
       md:hidden
 
-      asticky
-      abottom-0
       w-[100%]
     ">
 
@@ -77,9 +75,6 @@
         kiwix-mini-download-open-downshadow
 
         h-[0.9rem]
-        axxs-[1.5rem]
-        axs:h-[1.5rem]
-        asm:h-[2rem]
 
         w-[100%]
       "></div>
@@ -171,7 +166,7 @@
           >Languages</label>
           <select
             id="languages-list"
-            class="select select-bordered select-sm max-w-xs"
+            class="select select-bordered select-sm max-w-[10rem]"
           >
             <option value="">All</option>
             {% for code, name in languages.items() %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
