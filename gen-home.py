@@ -144,11 +144,11 @@ class Link(dict):
 
 
 class Reader(dict):
-    MANDATORY_FIELDS = ("platform", "url", "size")
+    MANDATORY_FIELDS = ("platform", "download_url", "filename", "size")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self["url"] = normalize(self.get("url", ""))
+        self["download_url"] = normalize(self.get("download_url", ""))
 
     @property
     def name(self) -> str:
