@@ -137,6 +137,7 @@
         content-max-w
         content-w
         mx-auto flex">
+        {% if page != 'home' %}
         <div class="text-start me-[2em] xl:me-[4em]">
           <button
             id="sort-by-name"
@@ -159,6 +160,7 @@
             class="kiwix-{{ page }}-btn kiwix-order-dir-btn"
           ><i title="Ascending order" class="fa-solid fa-arrow-up"></i></button>
         </div>
+        {% endif %}
         <div class="text-center me-[2em] xl:me-[4em]">
           <label
             for="languages-list"

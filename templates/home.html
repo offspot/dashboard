@@ -195,7 +195,7 @@
           </div>
 
           <div class="flex flex-row relative">
-            <div class="flex-none min-w-[38px]">{% if package.download and package.download.size %}<span class="text-xs">{{ package.download.size|fsize }}</span>{% endif %}</div>
+            <div class="flex-none min-w-[38px]"></div>
             <div class="flex-auto absolute left-[3.2rem]">{% if package.tags %}{% for tag in package.tags %}{% if loop.index0 <= 1 %}<span class="
               rounded-xl
               px-2
