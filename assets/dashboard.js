@@ -180,8 +180,16 @@ const Filtering = class {
 
     function updateSort() {
       // large sort btn
-      // const btns = document.getElementsByClassName('kiwix-sort-btn');
-      const btns = document.getElementsByClassName('kiwix-order-dir-btn');
+      let btns = document.getElementsByClassName('kiwix-sort-btn')
+      for (var i=0; i<btns.length; i++) {
+        let funcClass = (btns[i].value == thefilter.order_by) ? addClass : removeClass;
+        funcClass(btns[i], 'kiwix-sort-btn-active');
+        funcClass(btns[i], 'kiwix-mobile-btn-active');
+        funcClass(btns[i], `kiwix-${page}-btn-active`);
+      }
+
+      // arrow asc/desc
+      btns = document.getElementsByClassName('kiwix-order-dir-btn');
       for (var i=0; i<btns.length; i++) {
         let funcClass = (btns[i].value == thefilter.order_dir) ? addClass : removeClass;
         funcClass(btns[i], 'kiwix-sort-btn-active');
