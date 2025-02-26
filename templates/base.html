@@ -102,8 +102,10 @@
           bg-origin-content
           bg-no-repeat
           bg-center-top
-        " style="background-image: url(assets/browse-tab-bg.svg);">{% if page != 'home' %}<a class="z-[6] relative block h-full" href="/">{% endif %}Browse{% if page != 'home' %}</a>{% endif %}
-      </div>
+        "
+        style="background-image: url(assets/browse-tab-bg.svg);">
+          {% if page != 'home' %}<a class="z-[6] relative h-full block" href="/">{% endif %}Browse{% if page != 'home' %}</a>{% endif %}
+        </div>
 
         <div
         id="change-tab-downloads"
@@ -145,8 +147,10 @@
           bg-origin-content
           bg-no-repeat
           bg-center-top
-        " style="background-image: url(assets/downloads-tab-bg.svg);">{% if page != 'download' %}<a class="z-[6] relative block h-full" href="/download">{% endif %}Downloads{% if page != 'download' %}</a>{% endif %}
-      </div>
+        "
+        style="background-image: url(assets/downloads-tab-bg.svg);">
+          {% if page != 'download' %}<a class="z-[6] relative h-full block" href="/download">{% endif %}Downloads{% if page != 'download' %}</a>{% endif %}
+        </div>
 
         <div
         id="change-tab-about"
@@ -188,8 +192,10 @@
           bg-origin-content
           bg-no-repeat
           bg-center-top
-        " style="background-image: url(assets/about-tab-bg.svg);">{% if page != 'about' %}<a class="z-[6] relative block h-full" href="/about">{% endif %}About{% if page != 'home' %}</a>{% endif %}
-      </div>
+        "
+        style="background-image: url(assets/about-tab-bg.svg);">
+          {% if page != 'about' %}<a class="z-[6] relative h-full block" href="/about">{% endif %}About{% if page != 'about' %}</a>{% endif %}
+        </div>
       </div>
     </div>
 
