@@ -83,7 +83,7 @@ const Filtering = class {
 
   reset() {
     this.order_by = 'name';
-    this.order_dir = '';
+    this.order_dir = 'desc';
     this.only_lang = '';
     this.only_category = '';
   }
