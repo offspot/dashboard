@@ -242,7 +242,7 @@
         </div>
         {% endif %}
         {% if page != 'about' %}
-        <div class="text-center me-[2em] xl:me-[4em]">
+        <div class="text-center me-[2em] xl:me-[4em] {% if is_monolingual %}hidden{% endif %}">
           <label
             for="languages-list"
             class="hidden lg:inline-block kiwix-{{page }}-filter-label text-[0.9em] me-[1em] dm-sans"
@@ -405,8 +405,8 @@
           ><i title="Ascending order" class="fa-solid fa-arrow-up"></i></button>
         </div>
 
-      <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans">Languages</h3>
-      <div>
+      <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans {% if is_monolingual %}hidden{% endif %}">Languages</h3>
+      <div class="{% if is_monolingual %}hidden{% endif %}">
         {% for code, name in languages.items() %}<button value="{{ code }}" class="lang-filter-btn kiwix-mobile-filter-btn">{{ name }}</option>{% endfor %}
       </div>
       <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans">Categories</h3>

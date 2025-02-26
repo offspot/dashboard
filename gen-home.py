@@ -204,6 +204,22 @@ class Package(dict):
         return [get_lang_def(lang) for lang in self.get("languages", [])]
 
 
+def is_monolingual(packages: list[Package]) -> bool:
+    """whether a collection of packages is monolingual or not
+
+    Special code `mul` is not considered a different language as it is used for
+    tools that are not language-bound.
+
+    Packages and ZIMs that contain multiple language content dont use `mul` and
+    provide an importance-sorted list of languages instead"""
+    langs = []
+    for package in packages:
+        langs.extend(package.langs)
+    if "mul" in langs:
+        langs.remove("mul")
+    return len(set(langs)) == 1
+
+
 def gen_home(fpath: pathlib.Path):
     try:
         document = yaml.load(fpath.read_text(), Loader=SafeLoader)
@@ -229,6 +245,7 @@ def gen_home(fpath: pathlib.Path):
     context["categories"] = sorted(context["categories"])
     context["readers"] = [Reader(**item) for item in document.get("readers", [])]
     context["links"] = [Link(**item) for item in document.get("links", [])]
+    context["is_monolingual"] = is_monolingual(context["packages"])
 
     try:
         with open(dest_dir / "index.html", "w") as fh:

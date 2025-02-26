@@ -153,7 +153,7 @@
             2xl:w-[4em]
             me-[1em]
           ">
-            <div class="flex-none text-left">
+            <div class="flex-none text-left  {% if is_monolingual %}hidden{% endif %}">
               {% if package.langs %}
               {% for lang in package.langs %}
               {% if loop.index0 < 2 %}

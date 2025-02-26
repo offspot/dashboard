@@ -144,6 +144,8 @@
 
                 qmd:w-[1.4em]
 
+                {% if is_monolingual %}hidden{% endif %}
+
               ">
                 {% for lang in package.langs %}
                 {% if loop.index0 <= 2 and lang.alpha_3 != 'mul' %}
