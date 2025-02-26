@@ -16,18 +16,10 @@
   <body
     data-page="{{ page }}"
     class="
-    {% if page == 'download' %}bg-kworange{% else %}bg-kwbggrey{% endif %}
-    md:bg-kwbggrey
+    {% if page == 'download' %}bg-kworange md:bg-kwbggrey{% elif page == 'about' %}bg-kwaboutdarkgrey{% else %}bg-kwbggrey{% endif %}
   ">
     <header class="
       bg-white
-
-      {% if page == 'download' %}
-        kiwix-mini-download-open-outerglow
-      {% endif %}
-      {% if page == 'home' %}
-        kiwix-mini-download-open-outerglow
-      {% endif %}
       ">
       <nav class="
         content-max-w
@@ -39,7 +31,7 @@
               <a href="/">
                 <img
                   src="/branding/horizontal-logo-light.png"
-                  class="object-scale-down w-[19rem] h-[6rem] object-left" />
+                  class="object-scale-down w-[19rem] h-[6rem] object-left pt-[1.2rem] pb-[1.2rem]" />
               </a>
             </div>
             <div
@@ -54,55 +46,95 @@
             <div class="hidden md:flex flex-none font-normal">
                 <a
                   href="/"
-                  class="{% if page != 'home' %}hover:text-kworange-500 {% endif %} active:text-kworange me-8 auppercase qtracking-widest text-[1.1em] {% if page == 'home' %} text-kworange{% endif %}">Browse</a>
+                  class="font-medium dm-sans {% if page != 'home' %}hover:text-kworange-500 {% endif %} active:text-kworange me-8 qtracking-widest text-[1.1em] {% if page == 'home' %} text-kworange{% endif %}">Browse</a>
                 <a
                   href="/download"
-                  class="{% if page != 'download' %}hover:text-kworange-500 {% endif %} active:text-kworange auppercase qtracking-widest text-[1.1em] {% if page == 'download' %} text-kworange{% endif %}" >Download</a>
+                  class="font-medium dm-sans {% if page != 'download' %}hover:text-kworange-500 {% endif %} active:text-kworange me-8 qtracking-widest text-[1.1em] {% if page == 'download' %} text-kworange{% endif %}" >Download</a>
+
+                <a
+                  href="/about"
+                  class="font-medium dm-sans {% if page != 'about' %}hover:text-kworange-500 {% endif %} active:text-kworange qtracking-widest text-[1.1em] {% if page == 'about' %} text-kworange{% endif %}" >About</a>
             </div>
         </div>
       </nav>
     </header>
 
-    {% if page == 'home' %}
     <div class="
       md:hidden
 
       w-[100%]
     ">
 
-      <div class="
-        bg-kworange
-        kiwix-mini-download-open-downshadow
-
-        h-[0.9rem]
-
-        w-[100%]
-      "></div>
-
-      <div class="w-[100%] flex">
-        <div class="flex-col w-[33%]"></div>
+      <div class="w-[100%] flex bg-white place-content-center">
 
         <div
-        id="open-download-drawer"
+        id="change-tab-browse"
         class="
+          mobile-tab
           flex-col
 
-          w-[34%]
+          w-[10em]
           h-[1.2rem]
-          xxs:h-[1.6rem]
-          xs:h-[2rem]
-          sm:h-[2.4rem]
+          xxs:h-[1.5rem]
+          xs:h-[1.5rem]
+          sm:h-[1.5rem]
 
           text-[0.7rem]
-          xxs:text-[0.8rem]
-          xs:text-[1rem]
-          sm:text-[1.2rem]
+          xxs:text-[0.9rem]/[1.5rem]
+          xs:text-[.9rem]/[1.5rem]
+          sm:text-[.9rem]/[1.5rem]
 
-          text-white
-          hover:text-kwbgwhitehover
+          {% if page == 'home' %}z-[5]{% else %}z-[3]{% endif %}
 
+          text-kwbrowsetabgrey
+
+          dm-sans
           font-normal
           xs:font-medium
+          xxs:font-medium
+          sm:font-medium
+
+          text-center
+
+          zcursor-pointer
+
+          bg-contain
+          bg-origin-content
+          bg-no-repeat
+          bg-center-top
+        " style="background-image: url(assets/browse-tab-bg.svg);">{% if page != 'home' %}<a class="z-[6] relative block h-full" href="/">{% endif %}Browse{% if page != 'home' %}</a>{% endif %}
+      </div>
+
+        <div
+        id="change-tab-downloads"
+        class="
+          mobile-tab
+          flex-col
+
+          w-[10em]
+          h-[1.2rem]
+          xxs:h-[1.5rem]
+          xs:h-[1.5rem]
+          sm:h-[1.5rem]
+
+          text-[0.7rem]
+          xxs:text-[0.9rem]/[1.5rem]
+          xs:text-[.9rem]/[1.5rem]
+          sm:text-[.9rem]/[1.5rem]
+
+          ml-[-4.3em]
+          xxs:ml-[-3em]
+          xs:ml-[-3.1em]
+          sm:ml-[-3.5em]
+
+          {% if page == 'download' %}z-[5]{% else %}z-[4]{% endif %}
+
+          text-white
+
+          dm-sans
+          font-normal
+          xs:font-medium
+          xxs:font-medium
           sm:font-medium
 
           text-center
@@ -113,13 +145,55 @@
           bg-origin-content
           bg-no-repeat
           bg-center-top
-        " style="background-image: url(assets/open-down-orange.png); "><a href="/download">DOWNLOADS</a></div>
+        " style="background-image: url(assets/downloads-tab-bg.svg);">{% if page != 'download' %}<a class="z-[6] relative block h-full" href="/download">{% endif %}Downloads{% if page != 'download' %}</a>{% endif %}
+      </div>
 
-        <div class="flex-col w-[33%]"></div>
+        <div
+        id="change-tab-about"
+        class="
+          mobile-tab
+          flex-col
+
+          w-[10em]
+          h-[1.2rem]
+          xxs:h-[1.5rem]
+          xs:h-[1.5rem]
+          sm:h-[1.5rem]
+
+          text-[0.7rem]
+          xxs:text-[0.9rem]/[1.5rem]
+          xs:text-[.9rem]/[1.5rem]
+          sm:text-[.9rem]/[1.5rem]
+
+          ml-[-4.3em]
+          xxs:ml-[-3em]
+          xs:ml-[-3.1em]
+          sm:ml-[-3.5em]
+
+          {% if page == 'about' %}z-[5]{% else %}z-[3]{% endif %}
+
+          text-white
+
+          dm-sans
+          font-normal
+          xs:font-medium
+          xxs:font-medium
+          sm:font-medium
+
+          text-center
+
+          cursor-pointer
+
+          bg-contain
+          bg-origin-content
+          bg-no-repeat
+          bg-center-top
+        " style="background-image: url(assets/about-tab-bg.svg);">{% if page != 'about' %}<a class="z-[6] relative block h-full" href="/about">{% endif %}About{% if page != 'home' %}</a>{% endif %}
+      </div>
       </div>
     </div>
-    {% endif %}
 
+    {% if page != 'about' %}
     <div class="
       {% if page == 'download' %}
         bg-kworange kiwix-download-innerglow
@@ -137,12 +211,12 @@
         content-max-w
         content-w
         mx-auto flex">
-        {% if page != 'home' %}
+        {% if page == 'downloads' %}
         <div class="text-start me-[2em] xl:me-[4em]">
           <button
             id="sort-by-name"
             value="name"
-            class="kiwix-{{ page }}-btn akiwix-{{ page }}-btn-active kiwix-sort-btn kiwix-sort-btn-active"
+            class="kiwix-{{ page }}-btn akiwix-{{ page }}-btn-active kiwix-sort-btn kiwix-sort-btn-active dm-sans"
           >Title</button>
           <button
             id="sort-by-size"
@@ -161,10 +235,11 @@
           ><i title="Ascending order" class="fa-solid fa-arrow-up"></i></button>
         </div>
         {% endif %}
+        {% if page != 'about' %}
         <div class="text-center me-[2em] xl:me-[4em]">
           <label
             for="languages-list"
-            class="hidden lg:inline-block kiwix-{{page }}-filter-label text-[0.9em]"
+            class="hidden lg:inline-block kiwix-{{page }}-filter-label text-[0.9em] me-[1em] dm-sans"
           >Languages</label>
           <select
             id="languages-list"
@@ -177,18 +252,20 @@
         <div  class="text-start">
           <label
             for="categories-list"
-            class="hidden lg:inline-block kiwix-{{page }}-filter-label  text-[0.9em]"
+            class="hidden lg:inline-block kiwix-{{page }}-filter-label  text-[0.9em] me-[1em] dm-sans"
           >Categories</label>
           <select
             id="categories-list"
-            class="select select-bordered select-sm max-w-xs"
+            class="select select-bordered select-sm max-w-xs dm-sans"
           >
             <option value="">All</option>
             {% for category in categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
           </select>
         </div>
+        {% endif %}
       </nav>
     </div>
+    {% endif %}
 {% block entries %}
 {% endblock %}
     <footer class="
@@ -239,42 +316,6 @@
         kiwix-mini-download-close-uppershadow
       "></div>
 
-      <div class="w-[100%] flex">
-        <div class="flex-col w-[33%]"></div>
-
-        <div
-        id="close-download-drawer"
-        class="
-          flex-col
-
-          w-[34%]
-          h-[2rem]
-
-          text-white
-          hover:text-kwbgwhitehover
-
-          font-normal
-          xs:font-medium
-          sm:font-medium
-
-          text-[0.9rem]
-          xxs:text-[0.9rem]
-          xs:text-[1.1rem]
-          sm:text-[1.2rem]
-
-          text-center
-
-          cursor-pointer
-
-          bg-contain
-          bg-origin-content
-          bg-no-repeat
-          bg-center-top
-        " style="background-image: url(assets/close-down-orange.png);"><a href="/">CLOSE</a></div>
-
-        <div class="flex-col w-[33%]"></div>
-      </div>
-
       <div class="
         w-[100%]
 
@@ -313,6 +354,8 @@
         text-kwtextgrey
 
         overflow-y-scroll
+
+        z-[20]
         "
     >
 
@@ -329,7 +372,7 @@
       <div class="
           grid-cols-1
         ">
-        <h3 class="text-[1.2em] font-semibold mb-1">Sort by</h3>
+        <h3 class="text-[1.2em] font-semibold mb-1 dm-sans">Sort by</h3>
         <div class="text-center text-[1.5em]">
           <button
             id="sort-by-name"
@@ -342,7 +385,7 @@
             class="kiwix-mobile-btn kiwix-sort-btn ml-[-1.8em] rounded-[1.5em]"
           >Size</button>
         </div>
-        <h3 class="text-[1.2em] font-semibold mt-[2em]">Order</h3>
+        <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans">Order</h3>
         <div class="text-center text-[1.5em]">
           <button
             id="order-desc"
@@ -356,11 +399,11 @@
           ><i title="Ascending order" class="fa-solid fa-arrow-up"></i></button>
         </div>
 
-      <h3 class="text-[1.2em] font-semibold mt-[2em]">Languages</h3>
+      <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans">Languages</h3>
       <div>
         {% for code, name in languages.items() %}<button value="{{ code }}" class="lang-filter-btn kiwix-mobile-filter-btn">{{ name }}</option>{% endfor %}
       </div>
-      <h3 class="text-[1.2em] font-semibold mt-[2em]">Categories</h3>
+      <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans">Categories</h3>
       <div>
         {% for category in categories %}<button value="{{ category }}" class="category-filter-btn kiwix-mobile-filter-btn">{{ category }}</option>{% endfor %}
       </div>
@@ -370,7 +413,7 @@
       <div class="text-center text-[1.5em]">
         <button
             id="reset-filters"
-            class="kiwix-mobile-btn rounded-[1.5em] w-[5em]"
+            class="kiwix-mobile-btn rounded-[1.5em] w-[5em] dm-sans"
           ><i title="Reset filters" class="fa-solid fa-trash-can"></i> Reset</button>
       </div>
     </div>

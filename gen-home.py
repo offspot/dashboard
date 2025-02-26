@@ -121,17 +121,19 @@ class Conf:
     debug: bool = bool(os.getenv("DEBUG", ""))
     fqdn: str = ""
     name: str = ""
+    version: str = "n/a"
     footer_note: str = ""
 
     @classmethod
     def from_doc(cls, document):
-        for key in ("name", "fqdn", "footer_note"):
+        for key in ("name", "fqdn", "footer_note", "version"):
             setattr(cls, key, document.get(key, "--"))
 
     @classmethod
     def to_dict(cls):
         return {
-            key: getattr(cls, key) for key in ("debug", "fqdn", "name", "footer_note")
+            key: getattr(cls, key)
+            for key in ("debug", "fqdn", "name", "version", "footer_note")
         }
 
 
@@ -232,6 +234,10 @@ def gen_home(fpath: pathlib.Path):
         with open(dest_dir / "index.html", "w") as fh:
             context["page"] = "home"
             fh.write(env.get_template("home.html").render(**context))
+
+        with open(dest_dir / "about.html", "w") as fh:
+            context["page"] = "about"
+            fh.write(env.get_template("about.html").render(**context))
 
         with open(dest_dir / "download.html", "w") as fh:
             context["page"] = "download"

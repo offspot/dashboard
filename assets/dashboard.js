@@ -249,6 +249,10 @@ function run() {
     });
   }
 
+  // no filtering on about
+  if (page == "about")
+    return;
+
   var filter = new Filtering();
 
   live('#languages-list', 'change', function(el, ev){
@@ -273,16 +277,6 @@ function run() {
       return;
     filter.order_dir = el.value;
     filter.render(true);
-  }
-
-  function onCloseDownloadDrawerButtonClick(el, ev) {
-    // go to home (from downloads)
-    window.location.assign("/");
-  }
-
-  function onOpenDownloadDrawerButtonClick(el, ev) {
-    // go (back) to downloads (from home)
-    window.location.assign("/download");
   }
 
   function onOpenMobileFiltersButtonClick(el, ev) {
@@ -331,9 +325,6 @@ function run() {
   live('#sort-by-size', 'click', onSortByButtonClick);
   live('#order-desc', 'click', onOrderDirButtonClick);
   live('#order-asc', 'click', onOrderDirButtonClick);
-
-  live('#close-download-drawer', 'click', onCloseDownloadDrawerButtonClick);
-  live('#open-download-drawer', 'click', onOpenDownloadDrawerButtonClick);
 
   live('#close-mobile-filters', 'click', onCloseMobileFiltersButtonClick);
   live('#open-mobile-filters', 'click', onOpenMobileFiltersButtonClick);

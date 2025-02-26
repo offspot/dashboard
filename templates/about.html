@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block entries %}
+    <section
+      class="
+        content-max-w
+
+        w-100 mx-auto
+
+        p-3
+
+        justify-center
+        box-border
+        my-4
+
+        text-white"
+    >
+    <div class="w-100 max-w-[50em] mx-left">
+      <h1 class="text-[1.2em] mb-[1.5em] mt-[2em]">About Kiwix Hotspot</h1>
+
+      <p class="mb-4"><strong>This software is free</strong> and developed by Kiwix, a non-profit organisation based in Switzerland.</p>
+      <p>Visit <a class="font-medium text-kwaboutorange" target="_blank" href="https://www.kiwix.org">www.kiwix.org</a> for more information.</p>
+      <p class="mb-4">We are also curious to hear from you! Do not hesitate to share your story with us at <a class="font-medium text-kwaboutorange" href="mailto:hotspot@kiwix.org">hotspot@kiwix.org</a>.</p>
+
+      <p class="bg-kwaboutdarkergrey rounded-[.6em] p-[.4em] text-[1em] max-w-[10em]"><code>{{ version }}</code></p>
+    </div>
+    </section>
+{% endblock %}
