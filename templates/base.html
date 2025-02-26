@@ -255,7 +255,7 @@
             {% for code, name in languages.items() %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
           </select>
         </div>
-        <div  class="text-start">
+        <div  class="text-start {% if is_monocategorized %}hidden{% endif %}">
           <label
             for="categories-list"
             class="hidden lg:inline-block kiwix-{{page }}-filter-label  text-[0.9em] me-[1em] dm-sans"
@@ -409,8 +409,8 @@
       <div class="{% if is_monolingual %}hidden{% endif %}">
         {% for code, name in languages.items() %}<button value="{{ code }}" class="lang-filter-btn kiwix-mobile-filter-btn">{{ name }}</option>{% endfor %}
       </div>
-      <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans">Categories</h3>
-      <div>
+      <h3 class="text-[1.2em] font-semibold mt-[2em] dm-sans {% if is_monocategorized %}hidden{% endif %}">Categories</h3>
+      <div class="{% if is_monocategorized %}hidden{% endif %}">
         {% for category in categories %}<button value="{{ category }}" class="category-filter-btn kiwix-mobile-filter-btn">{{ category }}</option>{% endfor %}
       </div>
 

@@ -182,6 +182,15 @@ class Package(dict):
         except KeyError:
             ...
 
+        self["category"] = ""
+        for tag in self.private_tags:
+            if tag.startswith("_category:"):
+                self["category"] = tag.split(":", 1)[-1]
+
+    @property
+    def category(self) -> str:
+        return self.get("category") or ""
+
     @property
     def tags(self) -> list[str]:
         return [tag for tag in self.get("tags", []) if tag and not tag.startswith("_")]
@@ -220,6 +229,10 @@ def is_monolingual(packages: list[Package]) -> bool:
     return len(set(langs)) == 1
 
 
+def is_monocategorized(packages: list[Package]) -> bool:
+    return len({package.category for package in packages if package.category}) == 1
+
+
 def gen_home(fpath: pathlib.Path):
     try:
         document = yaml.load(fpath.read_text(), Loader=SafeLoader)
@@ -233,19 +246,21 @@ def gen_home(fpath: pathlib.Path):
     context["packages"] = list(
         filter(lambda p: p.visible, [Package(**item) for item in document["packages"]])
     )
-    context["languages"] = {}
-    context["categories"] = set()
-    for package in context["packages"]:
-        for lang in package.langs:
-            context["languages"][lang.alpha_3] = lang.native
-        for tag in package.get("tags", []):
-            if tag.startswith("_category:"):
-                package["category"] = tag.split(":", 1)[-1]
-                context["categories"].add(package["category"])
-    context["categories"] = sorted(context["categories"])
+    context["languages"] = {
+        lang.alpha_3: lang.native
+        for package in context["packages"]
+        for lang in package.langs
+    }
+    context["languages"] = dict(
+        sorted(context["languages"].items(), key=lambda item: item[1])
+    )
+    context["categories"] = sorted(
+        {package.category for package in context["packages"] if package.category}
+    )
     context["readers"] = [Reader(**item) for item in document.get("readers", [])]
     context["links"] = [Link(**item) for item in document.get("links", [])]
     context["is_monolingual"] = is_monolingual(context["packages"])
+    context["is_monocategorized"] = is_monocategorized(context["packages"])
 
     try:
         with open(dest_dir / "index.html", "w") as fh:
