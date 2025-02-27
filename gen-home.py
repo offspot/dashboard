@@ -274,6 +274,9 @@ def gen_home(fpath: pathlib.Path):
         with open(dest_dir / "download.html", "w") as fh:
             context["page"] = "download"
             fh.write(env.get_template("download.html").render(**context))
+
+        with open(dest_dir / "blocked/" / "index.html", "w") as fh:
+            fh.write(env.get_template("external.html").render(**context))
     except Exception as exc:
         print("[CRITICAL] unable to gen homepage, using fallback")
         traceback.print_exception(exc)

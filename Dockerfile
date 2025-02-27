@@ -54,6 +54,7 @@ COPY fallback.html /var/www/fallback.html
 COPY home.yaml /src/
 COPY lighttpd.conf /etc/lighttpd/
 COPY entrypoint.sh /usr/local/bin/
+COPY blocked /var/www/blocked/
 
 WORKDIR /src
 

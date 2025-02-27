@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>External Link detected</title>
+     <base href="http://{{ fqdn }}/blocked/" />
+    <link rel="stylesheet" type="text/css" href="blocked.css" />
+  </head>
+  <body>
+    <header>
+      <img src="attention.svg" alt="Caution!" />
+    </header>
+    <section class="intro">
+      <h1>External Link detected</h1>
+      <p>You are about to leave Kiwix's ZIM reader for</p>
+      <p><code id="link-placeholder">Error: the link is missing.</code></p>
+    </section>
+    <section class="advice">
+      <p>That content is not included in the ZIM you were browsing.</p>
+      <p>Following that link may or may not work, depending on numerous factors; you being connected to the Internet or not being one of them.</p>
+      <p>If you want to stick to what's included in the ZIM content, hit the back button of your browser.</p>
+    </section>
+  </body>
+  <script type="text/javascript">
+    function getSearchParams(k){
+      var p={};
+      location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+      return k?p[k]:p;
+    }
+    var source = getSearchParams("source");
+    if (source && source.length) {
+        try { source = decodeURIComponent(source); } catch (err) {}
+        var ph = document.getElementById("link-placeholder");
+        ph.innerHTML = `<a href="${source}">${source} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l82.7 0L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3l0 82.7c0 17.7 14.3 32 32 32s32-14.3 32-32l0-160c0-17.7-14.3-32-32-32L320 0zM80 32C35.8 32 0 67.8 0 112L0 432c0 44.2 35.8 80 80 80l320 0c44.2 0 80-35.8 80-80l0-112c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 112c0 8.8-7.2 16-16 16L80 448c-8.8 0-16-7.2-16-16l0-320c0-8.8 7.2-16 16-16l112 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L80 32z"/></svg></a>`;
+    }
+</script>
+</html>
