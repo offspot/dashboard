@@ -63,6 +63,7 @@ header, .intro {
 
 .intro code {
   font-family: monospace;
+  font-size: 1.1em;
 }
 
 .intro code a, .intro code a:active, .intro code a:visited {
@@ -80,6 +81,7 @@ header, .intro {
   width: 80%;
   margin: auto;
   margin-bottom: 15%;
+  margin-top: 5em;
 
   background-color: #ffffff;
   border-radius: 1rem;
