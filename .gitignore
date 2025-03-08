@@ -8,3 +8,4 @@ assets/fontawesome
 /about.html
 /*.sh
 /blocked/index.html
+lighttpd-dev.conf
