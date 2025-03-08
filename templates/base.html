@@ -49,11 +49,11 @@
                   href="/"
                   class="font-medium dm-sans {% if page != 'home' %}hover:text-kworange-500 {% endif %} active:text-kworange me-8 qtracking-widest text-[1.1em] {% if page == 'home' %} text-kworange{% endif %}">Browse</a>
                 <a
-                  href="/download"
+                  href="/download/"
                   class="font-medium dm-sans {% if page != 'download' %}hover:text-kworange-500 {% endif %} active:text-kworange me-8 qtracking-widest text-[1.1em] {% if page == 'download' %} text-kworange{% endif %}" >Download</a>
 
                 <a
-                  href="/about"
+                  href="/about/"
                   class="font-medium dm-sans {% if page != 'about' %}hover:text-kworange-500 {% endif %} active:text-kworange qtracking-widest text-[1.1em] {% if page == 'about' %} text-kworange{% endif %}" >About</a>
             </div>
         </div>
@@ -104,7 +104,7 @@
           bg-no-repeat
           bg-center-top
         "
-        style="background-image: url(assets/browse-tab-bg.svg);">
+        style="background-image: url(/assets/browse-tab-bg.svg);">
           {% if page != 'home' %}<a class="z-[6] relative h-full block" href="/">{% endif %}Browse{% if page != 'home' %}</a>{% endif %}
         </div>
 
@@ -149,8 +149,8 @@
           bg-no-repeat
           bg-center-top
         "
-        style="background-image: url(assets/downloads-tab-bg.svg);">
-          {% if page != 'download' %}<a class="z-[6] relative h-full block" href="/download">{% endif %}Downloads{% if page != 'download' %}</a>{% endif %}
+        style="background-image: url(/assets/downloads-tab-bg.svg);">
+          {% if page != 'download' %}<a class="z-[6] relative h-full block" href="/download/">{% endif %}Downloads{% if page != 'download' %}</a>{% endif %}
         </div>
 
         <div
@@ -194,8 +194,8 @@
           bg-no-repeat
           bg-center-top
         "
-        style="background-image: url(assets/about-tab-bg.svg);">
-          {% if page != 'about' %}<a class="z-[6] relative h-full block" href="/about">{% endif %}About{% if page != 'about' %}</a>{% endif %}
+        style="background-image: url(/assets/about-tab-bg.svg);">
+          {% if page != 'about' %}<a class="z-[6] relative h-full block" href="/about/">{% endif %}About{% if page != 'about' %}</a>{% endif %}
         </div>
       </div>
     </div>
