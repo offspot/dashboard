@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./templates/**/*.{html,js}"],
+  content: ["./templates/*.html", "./*.html", "./assets/*.js", "./blocked/index.html"],
   safelist: [
     'kiwix-home-btn',
     'kiwix-home-btn-active',

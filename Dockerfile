@@ -60,7 +60,7 @@ WORKDIR /src
 
 RUN \
     # gen final CSS
-    tailwindcss -i /var/www/assets/dashboard-tailwind-src.css -o /var/www/assets/dashboard.css \
+    tailwindcss -i /var/www/assets/dashboard-tailwind-src.css -o /var/www/assets/dashboard.css -c /src/tailwind.config.js \
     && rm -f /var/www/assets/dashboard-tailwind-src.css \
     && rm -f /usr/local/bin/tailwindcss \
     # store python bytecode in image
