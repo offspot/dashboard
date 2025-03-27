@@ -224,8 +224,9 @@ def is_monolingual(packages: list[Package]) -> bool:
     langs = []
     for package in packages:
         langs.extend(package.langs)
-    if "mul" in langs:
-        langs.remove("mul")
+    mul = get_lang_def("mul")
+    if mul in langs:
+        langs.remove(mul)
     return len(set(langs)) == 1
 
 
