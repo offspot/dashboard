@@ -111,7 +111,7 @@
               h-[4em]
               xs:h-[6.5rem]
               sm:h-[5.5rem]
-              md:h-[7.4rem]
+              md:h-[6.6rem]
             ">
             <div
               class="
@@ -195,24 +195,29 @@
             </div>
           </div>
 
-          <div class="flex flex-row relative">
-            <div class="flex-none min-w-[38px]"></div>
-            <div class="flex-auto absolute left-[3.2rem]">{% if package.tags %}{% for tag in package.tags %}{% if loop.index0 <= 1 %}<span class="
-              rounded-xl
-              px-2
-              py-0.5
+          <div class="
+            flex
+            flex-col
+            justify-center
+            h-[1.375rem]
+            md:h-[2.75rem]">
+            <div class="flex flex-row md:max-h-[2.75rem] max-h-[1.375rem] w-full gap-1">
+              <div class="flex flex-wrap overflow-hidden gap-1 pr-6 md:pr-0">{% if package.tags %}{% for tag in package.tags %}<span class="
+                rounded-xl
+                px-2
+                py-0.5
 
-              bg-kwtagbggrey
-              text-white
-              text-xs
+                bg-kwtagbggrey
+                text-white
+                text-xs
+                truncate
+                overflow-hidden
+                text-ellipsis
 
-              font-regular
-              md:font-medium
-
-              justify-center
-              me-1
-              last:me-0
-            ">{{ tag }}</span>{% endif %}{% endfor %}{% endif %}</div>
+                font-regular
+                md:font-medium
+              " title="{{ tag }}">{{ tag }}</span>{% endfor %}{% endif %}</div>
+            </div>
           </div>
         </div>
       {% else %}
