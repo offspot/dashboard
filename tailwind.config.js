@@ -42,8 +42,9 @@ module.exports = {
         kwtextblack: '#231f20',
         kwtextgrey: '#585b5d',
         kwtextgreyn: '#707272',
-        kwaboutdarkgrey: '#2f3538',
-        kwaboutdarkergrey: '#21272b',
+        kwaboutdarkblue: '#161c32',
+        kwaboutdarkerblue: '#0e0f14',
+        kwaboutlightblue: '#32384c',
         kwaboutorange: '#f48c32',
         kwbrowsetabgrey: '#333333',
         'kworange': {

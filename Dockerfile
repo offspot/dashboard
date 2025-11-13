@@ -18,7 +18,7 @@ RUN \
         --no-cache-dir \
         Jinja2==3.1.2 PyYAML==6.0.1 humanfriendly==10.0 libzim==3.4.0 pycountry==23.12.11 \
     # install tailwind CSS cli
-    && curl -L -o /usr/local/bin/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.3/tailwindcss-linux-arm64 \
+    && curl -L -o /usr/local/bin/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.17/tailwindcss-linux-arm64 \
     && chmod +x /usr/local/bin/tailwindcss \
     && apk del curl
 

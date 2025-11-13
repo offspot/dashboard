@@ -14,8 +14,8 @@
   </head>
   <body
     data-page="{{ page }}"
-    class="
-    {% if page == 'download' %}bg-kworange md:bg-kwbggrey{% elif page == 'about' %}bg-kwaboutdarkgrey{% else %}bg-kwbggrey{% endif %}
+    class="relative min-h-screen pb-20
+    {% if page == 'download' %}bg-kworange md:bg-kwbggrey{% elif page == 'about' %}bg-gradient-to-br from-kwaboutdarkblue to-kwaboutdarkerblue{% else %}bg-kwbggrey{% endif %}
   ">
     <header class="
       bg-white
@@ -271,6 +271,8 @@
         {% endif %}
       </nav>
     </div>
+    {% else %}
+    <div class="bg-kwaboutdarkerblue h-[4.2rem]"></div>
     {% endif %}
 {% block entries %}
 {% endblock %}
@@ -279,16 +281,18 @@
       footer-left
       bg-kworange
       text-white
-      rounded
-      mt-[5em]
+
+      w-[100%]
+      absolute
+      bottom-0
     ">
       <div class="
         content-max-w
         mx-auto
         w-[100%]
-        p-5 pl-2.5
+        p-5 pl-0
       ">
-        <nav class="content-w">
+        <nav class="">
           {% for link in links %}
           <a
             href="{{ link.url }}"
