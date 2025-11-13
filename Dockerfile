@@ -1,5 +1,5 @@
 FROM alpine:3.19
-LABEL org.opencontainers.image.source https://github.com/offspot/dashboard
+LABEL org.opencontainers.image.source=https://github.com/offspot/dashboard
 
 RUN \
     apk add --no-cache curl dumb-init yaml python3 lighttpd \
@@ -22,25 +22,25 @@ RUN \
     && chmod +x /usr/local/bin/tailwindcss \
     && apk del curl
 
-ENV FQDN "generic.hotspot"
-ENV NAME "My Hotspot"
+ENV FQDN="generic.hotspot"
+ENV NAME="My Hotspot"
 # path in which to find code (templates)
-ENV SRC_DIR "/src"
+ENV SRC_DIR="/src"
 # path to packages YAML file
-ENV PACKAGES_PATH "/src/home.yaml"
+ENV PACKAGES_PATH="/src/home.yaml"
 # path to write home HTML and assets file
-ENV DEST_DIR "/var/www"
+ENV DEST_DIR="/var/www"
 # folder storing ZIM files. unless DONT_UPDATE_PACKAGES, ZimPackages not in the folder
 # will be removed (disabled) from packages.yaml
 # discovered ZIM (not in YAML) will be added
-ENV ZIM_DIR "/data/zims"
+ENV ZIM_DIR="/data/zims"
 # set to skip packages.yaml update on start (reading ZIM_PATH folder)
-ENV DONT_UPDATE_PACKAGES ""
+ENV DONT_UPDATE_PACKAGES=""
 
 # templates to write ZIM Package links to reader and ZIM downloads.
 # Available patterns (to be replaced): `{fqdn}`, `{zim_name}`, `{zim_filename}`
-ENV KIWIX_READER_LINK_TPL "//kiwix.{fqdn}/viewer#{zim_name}"
-ENV KIWIX_DOWNLOAD_LINK_TPL "//zim-download.{fqdn}/{zim_filename}"
+ENV KIWIX_READER_LINK_TPL="//kiwix.{fqdn}/viewer#{zim_name}"
+ENV KIWIX_DOWNLOAD_LINK_TPL="//zim-download.{fqdn}/{zim_filename}"
 
 # WARN: this break apk but saves a lot of space
 # it's OK on prod but comment it during dev if you need packages
