@@ -1,22 +1,22 @@
-FROM alpine:3.19
+FROM alpine:3.22
 LABEL org.opencontainers.image.source=https://github.com/offspot/dashboard
 
 RUN \
     apk add --no-cache curl dumb-init yaml python3 lighttpd \
     # FontAwesome font
-    && curl -L -O https://use.fontawesome.com/releases/v6.5.1/fontawesome-free-6.5.1-web.zip \
-        && unzip -o fontawesome-free-6.5.1-web.zip \
-            fontawesome-free-6.5.1-web/css/* \
-            fontawesome-free-6.5.1-web/webfonts/* \
+    && curl -L -O https://use.fontawesome.com/releases/v7.1.0/fontawesome-free-7.1.0-web.zip \
+        && unzip -o fontawesome-free-7.1.0-web.zip \
+            fontawesome-free-7.1.0-web/css/* \
+            fontawesome-free-7.1.0-web/webfonts/* \
             -d /var/www/assets/ \
-        && mv /var/www/assets/fontawesome-free-6.5.1-web /var/www/assets/fontawesome \
-        && rm -f fontawesome-free-6.5.1-web.zip \
+        && mv /var/www/assets/fontawesome-free-7.1.0-web /var/www/assets/fontawesome \
+        && rm -f fontawesome-free-7.1.0-web.zip \
     # python dependencies
     && python3 -m venv /usr/local/bin/gen-home_env \
     && /usr/local/bin/gen-home_env/bin/pip3 install --no-cache-dir -U pip \
     && /usr/local/bin/gen-home_env/bin/pip3 install \
         --no-cache-dir \
-        Jinja2==3.1.2 PyYAML==6.0.1 humanfriendly==10.0 libzim==3.4.0 pycountry==23.12.11 \
+        Jinja2==3.1.6 PyYAML==6.0.3 humanfriendly==10.0 libzim==3.8.0 pycountry==24.6.1 \
     # install tailwind CSS cli
     && curl -L -o /usr/local/bin/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.17/tailwindcss-linux-arm64 \
     && chmod +x /usr/local/bin/tailwindcss \
