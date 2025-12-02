@@ -296,7 +296,7 @@
           {% for link in links %}
           <a
             href="{{ link.url }}"
-            class="link link-hover me-5 last:me-0">{% if link.icon %}<i class="fa fa-lock fa-sm me-1"></i>{% endif %}{{ link.name }}</a>
+            class="link link-hover me-5 last:me-0">{% if link.icon %}<i class="fa fa-lock fa-sm me-1"></i>{% endif %}{{ link.label }}</a>
           {% endfor %}
         </nav>
       </div>
