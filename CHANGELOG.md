@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Header links to About and Download
 - Footer links referred to `name` instead of `label`.
 
 ## [1.6.3] - 2025-11-29
