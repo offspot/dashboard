@@ -15,7 +15,7 @@
   <body
     data-page="{{ page }}"
     class="relative min-h-screen pb-20
-    {% if page == 'download' %}bg-kworange md:bg-kwbggrey{% elif page == 'about' %}bg-gradient-to-br from-kwaboutdarkblue to-kwaboutdarkerblue{% else %}bg-kwbggrey{% endif %}
+    {% if page == 'download' %}bg-kworange md:bg-kwbggrey{% elif page == 'about' %}bg-kwaboutfallbackblue bg-gradient-to-br from-kwaboutdarkblue to-kwaboutdarkerblue{% else %}bg-kwbggrey{% endif %}
   ">
     <header class="
       bg-white
