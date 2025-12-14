@@ -73,6 +73,7 @@ const Filtering = class {
   order_dir = 'desc';
   only_lang = '';
   only_category = '';
+  only_search = '';
 
   constructor(order_by, order_dir, only_lang, only_category) {
     this.order_by = order_by || this.order_by;
@@ -86,6 +87,7 @@ const Filtering = class {
     this.order_dir = 'desc';
     this.only_lang = '';
     this.only_category = '';
+    this.only_search = '';
   }
 
   toString() {
@@ -146,6 +148,13 @@ const Filtering = class {
         visible = false;
       if (visible && this.only_category && this.only_category != category)
         visible = false;
+      if (visible && this.only_search.trim() !== '') {
+        const nameAttr = elems[i].getAttribute('data-name').toLowerCase();
+        const descAttr = elems[i].getAttribute('data-desc') ? elems[i].getAttribute('data-desc').toLowerCase() : '';
+        if (!nameAttr.includes(this.only_search.toLowerCase()) && !descAttr.includes(this.only_search.toLowerCase())) {
+          visible = false;
+        }
+      }
 
       if (visible)
         removeClass(elems[i], 'hidden');
@@ -333,6 +342,11 @@ function run() {
   live('#mobile-filters .category-filter-btn', 'click', toggleMobileCategoryFilterButtonClick)
 
   live('#reset-filters', 'click', resetMobileFiltersButtonClick)
+
+  live('#search-bar', 'input', function(el, ev) {
+    filter.only_search = el.value;
+    filter.render(true);
+  });
 
   filter.render(true);
 }

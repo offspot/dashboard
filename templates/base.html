@@ -249,7 +249,7 @@
           >Languages</label>
           <select
             id="languages-list"
-            class="select select-bordered select-sm max-w-[10rem]"
+            class="select select-bordered select-sm dropdown max-w-[10rem]"
           >
             <option value="">All</option>
             {% for code, name in languages.items() %}<option value="{{ code }}">{{ name }}</option>{% endfor %}
@@ -262,11 +262,23 @@
           >Categories</label>
           <select
             id="categories-list"
-            class="select select-bordered select-sm max-w-xs dm-sans"
+            class="select select-bordered select-sm dropdown max-w-xs dm-sans"
           >
             <option value="">All</option>
             {% for category in categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
           </select>
+        </div>
+        <div class="text-start ml-[2em] xl:ml-[4em]">
+          <label
+            for="search-bar"
+            class="hidden lg:inline-block kiwix-{{page }}-filter-label text-[0.9em] me-[1em] dm-sans"
+          >Search</label>
+          <input
+            id="search-bar"
+            type="text"
+            placeholder="Search..."
+            class="select select-bordered select-sm max-w-xs dm-sans h-[2.25rem]"
+          />
         </div>
         {% endif %}
       </nav>
