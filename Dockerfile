@@ -16,7 +16,7 @@ RUN \
     && /usr/local/bin/gen-home_env/bin/pip3 install --no-cache-dir -U pip \
     && /usr/local/bin/gen-home_env/bin/pip3 install \
         --no-cache-dir \
-        Jinja2==3.1.6 PyYAML==6.0.3 humanfriendly==10.0 libzim==3.8.0 pycountry==24.6.1 \
+        Jinja2==3.1.6 PyYAML==6.0.3 humanfriendly==10.0 libzim==3.8.0 pycountry==24.6.1 unidecode==1.4.0 \
     # install tailwind CSS cli
     && curl -L -o /usr/local/bin/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.17/tailwindcss-linux-arm64 \
     && chmod +x /usr/local/bin/tailwindcss \
@@ -39,7 +39,7 @@ ENV DONT_UPDATE_PACKAGES=""
 
 # templates to write ZIM Package links to reader and ZIM downloads.
 # Available patterns (to be replaced): `{fqdn}`, `{zim_name}`, `{zim_filename}`
-ENV KIWIX_READER_LINK_TPL="//kiwix.{fqdn}/viewer#{zim_name}"
+ENV KIWIX_READER_LINK_TPL="//kiwix.{fqdn}/viewer#{libkiwix_path}"
 ENV KIWIX_DOWNLOAD_LINK_TPL="//zim-download.{fqdn}/{zim_filename}"
 
 # WARN: this break apk but saves a lot of space
